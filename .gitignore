@@ -38,3 +38,7 @@ out/
 
 ### resources
 src/main/resources/**
+
+### .env ###
+.env.*
+.env
