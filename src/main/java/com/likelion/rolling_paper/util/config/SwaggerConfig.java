@@ -11,6 +11,9 @@ import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * http://localhost:8080/swagger-ui/index.html
+ */
 @OpenAPIDefinition(
         info = @Info(title = "Rolling Paper", description = "롤링 페이퍼 API", version = "v1"),
         servers = {
