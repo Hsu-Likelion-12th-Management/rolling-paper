@@ -1,12 +1,11 @@
 package com.likelion.rolling_paper.util.response;
 
-import io.swagger.v3.oas.annotations.media.Schema;
+import com.likelion.rolling_paper.util.exception.BaseErrorCode;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
-import org.example.gather_back_end.util.exception.BaseErrorCode;
 
 @Getter
 @ToString
