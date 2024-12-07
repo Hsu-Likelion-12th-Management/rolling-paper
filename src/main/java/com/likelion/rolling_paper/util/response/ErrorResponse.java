@@ -1,9 +1,9 @@
 package com.likelion.rolling_paper.util.response;
 
+import com.likelion.rolling_paper.util.exception.BaseErrorCode;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
-import org.example.gather_back_end.util.exception.BaseErrorCode;
 
 @Getter
 @ToString
