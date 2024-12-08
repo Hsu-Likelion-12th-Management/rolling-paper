@@ -32,10 +32,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: make application.properties
+      # yml 파일 생성
+      - name: make application.yml
         run: |
           mkdir -p src/main/resources
-          echo "$APPLICATION" > src/main/resources/application.properties
+          echo "$APPLICATION" > src/main/resources/application.yml
         env:
           APPLICATION: ${{ secrets.APPLICATION }}
 
