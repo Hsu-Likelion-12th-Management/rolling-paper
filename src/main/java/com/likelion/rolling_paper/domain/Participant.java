@@ -30,6 +30,6 @@ public class Participant {
     private RollingPaperHome home;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "participant_id")
     private User user;
 }

@@ -19,7 +19,7 @@ import lombok.*;
 @Table(name = "rolling_paper_home")
 public class RollingPaperHome {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "roling_paper_home_id")
+    @Column(name = "home_id")
     private Long id;
     private String name;
     @Column(name = "participants_count")
