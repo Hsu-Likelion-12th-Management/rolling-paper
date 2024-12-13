@@ -1,5 +1,6 @@
 package com.likelion.rolling_paper.domain;
 
+import com.likelion.rolling_paper.home.dto.CreateHomeReqDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -29,4 +30,13 @@ public class RollingPaperHome {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
     private User owner;
+
+    // == 편의 메소드 ==
+    public static RollingPaperHome toEntity(User user, CreateHomeReqDto dto) {
+        return RollingPaperHome.builder()
+                .name(dto.name())
+                .participantsCount(dto.participantCount())
+                .owner(user)
+                .build();
+    }
 }
