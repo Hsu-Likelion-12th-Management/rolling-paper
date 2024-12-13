@@ -11,8 +11,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @Tag(name = "롤링 페이퍼 홈 관련", description = "롤링 페이퍼 홈과 관련된 API")
@@ -31,7 +33,7 @@ public interface HomeControllerApi {
                                     + "}"),
                             schema = @Schema(implementation = SuccessResponse.class)))
     })
-    @GetMapping
+    @PostMapping
     SuccessResponse<?> createRollingPaperHome(
             @AuthenticationPrincipal CustomOAuth2User customOAuth2User,
             @RequestBody @Valid CreateHomeReqDto createHomeReqDto);
@@ -61,6 +63,7 @@ public interface HomeControllerApi {
                             schema = @Schema(implementation = SuccessResponse.class)))
     })
     @GetMapping
-    SuccessResponse<?> getMyRollingPaperHome(@AuthenticationPrincipal CustomOAuth2User customOAuth2User);
+    SuccessResponse<?> getMyRollingPaperHome(
+            @AuthenticationPrincipal CustomOAuth2User customOAuth2User, Pageable pageable);
 }
 
