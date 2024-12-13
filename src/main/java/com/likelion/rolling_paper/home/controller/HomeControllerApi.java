@@ -1,5 +1,7 @@
 package com.likelion.rolling_paper.home.controller;
 
+import com.likelion.rolling_paper.home.dto.CreateHomeReqDto;
+import com.likelion.rolling_paper.util.jwt.dto.CustomOAuth2User;
 import com.likelion.rolling_paper.util.response.SuccessResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -8,8 +10,11 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Tag(name = "롤링 페이퍼 홈 관련", description = "롤링 페이퍼 홈과 관련된 API")
 public interface HomeControllerApi {
@@ -28,7 +33,9 @@ public interface HomeControllerApi {
                             schema = @Schema(implementation = SuccessResponse.class)))
     })
     @GetMapping
-    SuccessResponse<?> createRollingPaperHome(Authentication authentication);
+    SuccessResponse<?> createRollingPaperHome(
+            @AuthenticationPrincipal CustomOAuth2User customOAuth2User,
+            @RequestBody @Valid CreateHomeReqDto createHomeReqDto);
 
     @Operation(summary = "내가 참여중인 롤링페이퍼 불러오기")
     @ApiResponses(value = {
@@ -55,6 +62,6 @@ public interface HomeControllerApi {
                             schema = @Schema(implementation = SuccessResponse.class)))
     })
     @GetMapping
-    SuccessResponse<?> getMyRollingPaperHome(Authentication authentication);
+    SuccessResponse<?> getMyRollingPaperHome(@AuthenticationPrincipal CustomOAuth2User customOAuth2User);
 }
 

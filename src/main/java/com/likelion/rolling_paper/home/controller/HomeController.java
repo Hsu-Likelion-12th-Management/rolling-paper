@@ -1,5 +1,7 @@
 package com.likelion.rolling_paper.home.controller;
 
+import com.likelion.rolling_paper.home.dto.CreateHomeReqDto;
+import com.likelion.rolling_paper.util.jwt.dto.CustomOAuth2User;
 import com.likelion.rolling_paper.util.response.SuccessResponse;
 import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
@@ -14,13 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class HomeController implements HomeControllerApi{
     @Override
     @PostMapping
-    public SuccessResponse<?> createRollingPaperHome(Authentication authentication) {
+    public SuccessResponse<?> createRollingPaperHome(CustomOAuth2User customOAuth2User,
+                                                     CreateHomeReqDto createHomeReqDto) {
         return null;
     }
 
     @Override
-    @GetMapping("/all")
-    public SuccessResponse<?> getMyRollingPaperHome(Authentication authentication) {
+    public SuccessResponse<?> getMyRollingPaperHome(CustomOAuth2User customOAuth2User) {
         return null;
     }
 }
