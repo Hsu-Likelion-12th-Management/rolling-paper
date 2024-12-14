@@ -1,6 +1,7 @@
 package com.likelion.rolling_paper.domain;
 
 import com.likelion.rolling_paper.home.dto.CreateHomeReqDto;
+import com.likelion.rolling_paper.util.entity.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -18,11 +19,13 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "rolling_paper_home")
-public class RollingPaperHome {
+public class RollingPaperHome extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "home_id")
     private Long id;
+
     private String name;
+
     @Column(name = "participants_count")
     private Integer participantsCount;
 

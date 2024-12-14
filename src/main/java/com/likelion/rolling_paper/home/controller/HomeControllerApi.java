@@ -1,6 +1,7 @@
 package com.likelion.rolling_paper.home.controller;
 
 import com.likelion.rolling_paper.home.dto.CreateHomeReqDto;
+import com.likelion.rolling_paper.home.dto.GetMyRollingPaperHomeRes;
 import com.likelion.rolling_paper.util.jwt.dto.CustomOAuth2User;
 import com.likelion.rolling_paper.util.response.SuccessResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -11,6 +12,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import java.util.List;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +36,7 @@ public interface HomeControllerApi {
                             schema = @Schema(implementation = SuccessResponse.class)))
     })
     @PostMapping
-    SuccessResponse<?> createRollingPaperHome(
+    SuccessResponse<Long> createRollingPaperHome(
             @AuthenticationPrincipal CustomOAuth2User customOAuth2User,
             @RequestBody @Valid CreateHomeReqDto createHomeReqDto);
 
@@ -63,7 +65,7 @@ public interface HomeControllerApi {
                             schema = @Schema(implementation = SuccessResponse.class)))
     })
     @GetMapping
-    SuccessResponse<?> getMyRollingPaperHome(
+    SuccessResponse<List<GetMyRollingPaperHomeRes>> getMyRollingPaperHome(
             @AuthenticationPrincipal CustomOAuth2User customOAuth2User, Pageable pageable);
 }
 
