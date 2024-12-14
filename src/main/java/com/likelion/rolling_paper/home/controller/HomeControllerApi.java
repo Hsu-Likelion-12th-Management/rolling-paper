@@ -58,7 +58,7 @@ public interface HomeControllerApi {
                                             {
                                                 "homeId": 2,
                                                 "title": "HSU 19학번 졸업"
-                                            },
+                                            }
                                         ]
                                     }
                                     """),
