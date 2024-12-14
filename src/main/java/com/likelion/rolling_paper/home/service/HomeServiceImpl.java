@@ -24,20 +24,20 @@ public class HomeServiceImpl implements HomeService {
 
     @Override
     @Transactional
-    public SuccessResponse<?> createRollingPaperHome(String email, CreateHomeReqDto createHomeReqDto) {
+    public Long createRollingPaperHome(String email, CreateHomeReqDto createHomeReqDto) {
         User user = userRepository.getByEmail(email);
         RollingPaperHome newHome = rollingPaperHomeRepository.save(RollingPaperHome.toEntity(user, createHomeReqDto));
-        return SuccessResponse.of(newHome.getId());
+        return newHome.getId();
     }
 
     @Override
-    public SuccessResponse<?> getMyRollingPaperHomes(String email, Pageable pageable) {
+    public List<GetMyRollingPaperHomeRes> getMyRollingPaperHomes(String email, Pageable pageable) {
         User user = userRepository.getByEmail(email);
         List<RollingPaperHome> myRollingPaperHome = participantRepository.findMyRollingPaperHome(user, pageable);
-        ArrayList<GetMyRollingPaperHomeRes> responseDtoList = new ArrayList<>();
+        List<GetMyRollingPaperHomeRes> responseDtoList = new ArrayList<>();
         for (RollingPaperHome home: myRollingPaperHome) {
             responseDtoList.add(GetMyRollingPaperHomeRes.of(home));
         }
-        return SuccessResponse.of(responseDtoList);
+        return responseDtoList;
     }
 }
