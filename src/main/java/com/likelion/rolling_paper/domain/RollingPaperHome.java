@@ -22,7 +22,9 @@ public class RollingPaperHome {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "home_id")
     private Long id;
+
     private String name;
+
     @Column(name = "participants_count")
     private Integer participantsCount;
 

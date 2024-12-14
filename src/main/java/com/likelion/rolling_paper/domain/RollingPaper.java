@@ -23,6 +23,7 @@ public class RollingPaper extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "rolling_paper_id")
     private Long id;
+
     private String content;
 
     // == 연관 관계 매핑 == //

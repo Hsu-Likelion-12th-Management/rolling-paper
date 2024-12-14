@@ -23,7 +23,6 @@ public class Participant {
     @Column(name = "participant_id")
     private Long id;
 
-
     // == 연관 관계 매핑 == //
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "home_id")

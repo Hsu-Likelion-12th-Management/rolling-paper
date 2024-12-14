@@ -26,8 +26,7 @@ public class HomeServiceImpl implements HomeService {
     @Transactional
     public SuccessResponse<?> createRollingPaperHome(String email, CreateHomeReqDto createHomeReqDto) {
         User user = userRepository.getByEmail(email);
-        RollingPaperHome newHome
-                = rollingPaperHomeRepository.save(RollingPaperHome.toEntity(user, createHomeReqDto));
+        RollingPaperHome newHome = rollingPaperHomeRepository.save(RollingPaperHome.toEntity(user, createHomeReqDto));
         return SuccessResponse.of(newHome.getId());
     }
 
@@ -36,7 +35,7 @@ public class HomeServiceImpl implements HomeService {
         User user = userRepository.getByEmail(email);
         List<RollingPaperHome> myRollingPaperHome = participantRepository.findMyRollingPaperHome(user, pageable);
         ArrayList<GetMyRollingPaperHomeRes> responseDtoList = new ArrayList<>();
-        for (RollingPaperHome home : myRollingPaperHome) {
+        for (RollingPaperHome home: myRollingPaperHome) {
             responseDtoList.add(GetMyRollingPaperHomeRes.of(home));
         }
         return SuccessResponse.of(responseDtoList);
