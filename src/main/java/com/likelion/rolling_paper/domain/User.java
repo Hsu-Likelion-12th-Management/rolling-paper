@@ -1,6 +1,7 @@
 package com.likelion.rolling_paper.domain;
 
 import com.likelion.rolling_paper.util.entity.BaseEntity;
+import com.likelion.rolling_paper.util.oauth.OAuthProvider;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,4 +32,7 @@ public class User extends BaseEntity {
 
     @Column(name = "kakao_id")
     private String kakaoId;
+
+    // KAKAO, NAVER.. ETC
+    private OAuthProvider oAuthProvider;
 }
