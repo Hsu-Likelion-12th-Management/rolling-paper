@@ -21,18 +21,22 @@ public class User extends BaseEntity {
     @Column(name = "user_id")
     private Long id;
 
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "email")
-    private String email;
-
-    @Column(name = "profile_image_url")
-    private String profileImgUrl;
-
     @Column(name = "kakao_id")
-    private String kakaoId;
+    private String kakaoId; // 카카오 로그인으로 받은 id
+
+    @Column(name = "nickname")
+    private String nickname; // 카카오 로그인으로 받은 이름
+
+    @Column(name = "profile_image")
+    private String profileImage; // 카카오 로그인으로 받은 프로필 이미지
 
     // KAKAO, NAVER.. ETC
     private OAuthProvider oAuthProvider;
+
+    @Builder
+    public User(String kakaoId, String nickname, OAuthProvider oAuthProvider) {
+        this.kakaoId = kakaoId;
+        this.nickname = nickname;
+        this.oAuthProvider = oAuthProvider;
+    }
 }
