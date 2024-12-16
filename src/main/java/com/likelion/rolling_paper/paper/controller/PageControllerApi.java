@@ -1,5 +1,7 @@
 package com.likelion.rolling_paper.paper.controller;
 
+import com.likelion.rolling_paper.paper.dto.CreateMessageReq;
+import com.likelion.rolling_paper.paper.dto.MessageInfoRes;
 import com.likelion.rolling_paper.paper.dto.RollingPaperInfoRes;
 import com.likelion.rolling_paper.util.jwt.dto.CustomOAuth2User;
 import com.likelion.rolling_paper.util.response.SuccessResponse;
@@ -27,7 +29,7 @@ public interface PageControllerApi {
                                         "timestamp": "2024-11-16T00:51:05.668577",
                                         "isSuccess": true,
                                         "code": "200",
-                                        "message": "새로운 눈덩이 페이지가 생성 되었습니다.",
+                                        "message": "호출에 성공하였습니다.",
                                         "data": {
                                             "pageId": 1,
                                             "name": "이이름"
@@ -40,4 +42,27 @@ public interface PageControllerApi {
     SuccessResponse<RollingPaperInfoRes> createRollingPaperPage(
             @AuthenticationPrincipal CustomOAuth2User customOAuth2User,
             @PathVariable Long homeId);
+
+    @Operation(summary = "눈덩이에 메시지 남기기")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "성공",
+                    content = @Content(mediaType = "application/json",
+                            examples = @ExampleObject(value = """
+                                    {
+                                        "timestamp": "2024-11-16T00:51:05.668577",
+                                        "isSuccess": true,
+                                        "code": "200",
+                                        "message": "호출에 성공하였습니다.",
+                                        "data": {
+                                            "pageId": 1,
+                                            "name": "이이름"
+                                        },
+                                    }
+                                    """),
+                            schema = @Schema(implementation = SuccessResponse.class)))
+    })
+    @PostMapping
+    SuccessResponse<MessageInfoRes> createNewMessage(
+            @AuthenticationPrincipal CustomOAuth2User customOAuth2User,
+            @RequestBody CreateMessageReq createMessageReq);
 }
