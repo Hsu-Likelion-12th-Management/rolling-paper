@@ -1,5 +1,6 @@
 package com.likelion.rolling_paper.paper.controller;
 
+import com.likelion.rolling_paper.paper.dto.MessageInfoRes;
 import com.likelion.rolling_paper.paper.dto.RollingPaperInfoRes;
 import com.likelion.rolling_paper.paper.service.PaperService;
 import com.likelion.rolling_paper.util.jwt.dto.CustomOAuth2User;
@@ -24,5 +25,13 @@ public class PageController implements PageControllerApi{
             @PathVariable("homeId") Long homeId) {
         RollingPaperInfoRes res = paperService.createRollingPaperPage(homeId, customOAuth2User.getUsername());
         return SuccessResponse.of(res);
+    }
+
+    @Override
+    @PostMapping("/message/{paperId}")
+    public SuccessResponse<MessageInfoRes> createNewMessage(
+            @AuthenticationPrincipal CustomOAuth2User customOAuth2User,
+            @PathVariable("paperId") Long paperId) {
+        return null;
     }
 }
