@@ -3,6 +3,8 @@ package com.likelion.rolling_paper.domain;
 import com.likelion.rolling_paper.util.entity.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,7 +26,10 @@ public class RollingPaper extends BaseEntity {
     @Column(name = "rolling_paper_id")
     private Long id;
 
-    private String content;
+    private String name; // 스노우볼 이름
+
+    @Enumerated(EnumType.STRING)
+    private State state;
 
     // == 연관 관계 매핑 == //
     @ManyToOne(fetch = FetchType.LAZY)
@@ -34,4 +39,14 @@ public class RollingPaper extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "home_id")
     private RollingPaperHome home;
+
+    // === 편의 메소드 ===
+    public static RollingPaper toEntity(String name, RollingPaperHome paperHome) {
+        return RollingPaper.builder()
+                .state(State.PROGRESS)
+                .name(name)
+                .home(paperHome)
+                .build();
+    }
+
 }
