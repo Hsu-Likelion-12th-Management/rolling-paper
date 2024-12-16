@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -37,5 +38,6 @@ public interface PageControllerApi {
     })
     @PostMapping
     SuccessResponse<RollingPaperInfoRes> createRollingPaperPage(
-            @AuthenticationPrincipal CustomOAuth2User customOAuth2User);
+            @AuthenticationPrincipal CustomOAuth2User customOAuth2User,
+            @PathVariable Long homeId);
 }

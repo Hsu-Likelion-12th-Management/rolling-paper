@@ -10,4 +10,9 @@ public interface UserRepository extends JpaRepository<User,Long> {
         return findByEmail(email).orElseThrow(UserNotFoundException::new);
     }
     Optional<User> findByEmail(String email);
+
+    default User getByKakaoId(String kakaoId) {
+        return findByKakaoId(kakaoId).orElseThrow(UserNotFoundException::new);
+    }
+    Optional<User> findByKakaoId(String kakaoId);
 }
