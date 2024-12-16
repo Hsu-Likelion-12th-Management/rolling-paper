@@ -1,5 +1,6 @@
 package com.likelion.rolling_paper.domain;
 
+import com.likelion.rolling_paper.paper.dto.CreateMessageReq;
 import com.likelion.rolling_paper.util.entity.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -34,4 +35,13 @@ public class Message extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "paper_id")
     private RollingPaper rollingPaper;
+
+    // == 편의 메소드 ==
+    public static Message toEntity(User user, String content, RollingPaper paper) {
+        return Message.builder()
+                .content(content)
+                .user(user)
+                .rollingPaper(paper)
+                .build();
+    }
 }
