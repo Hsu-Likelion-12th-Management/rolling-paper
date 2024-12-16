@@ -1,8 +1,11 @@
 package com.likelion.rolling_paper.domain;
 
+import com.likelion.rolling_paper.paper.dto.State;
 import com.likelion.rolling_paper.util.entity.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,6 +28,9 @@ public class RollingPaper extends BaseEntity {
     private Long id;
 
     private String content;
+
+    @Enumerated(EnumType.STRING)
+    private State state;
 
     // == 연관 관계 매핑 == //
     @ManyToOne(fetch = FetchType.LAZY)
