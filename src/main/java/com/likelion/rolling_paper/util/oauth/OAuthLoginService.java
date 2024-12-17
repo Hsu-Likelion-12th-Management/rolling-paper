@@ -12,7 +12,9 @@ public class OAuthLoginService {
     private final AuthTokensGenerator authTokensGenerator;
     private final RequestOAuthInfoService requestOAuthInfoService;
 
-    public AuthTokens login(OAuthLoginParams params) {
+    public AuthTokens login(String code) {
+        // 인가 코드를 사용하여 KakaoLoginParams 생성
+        KakaoLoginParams params = new KakaoLoginParams(code);
         OAuthInfoResponse oAuthInfoResponse = requestOAuthInfoService.request(params);
         Long memberId = findOrCreateMember(oAuthInfoResponse);
         return authTokensGenerator.generate(memberId);
@@ -26,11 +28,10 @@ public class OAuthLoginService {
 
     private Long newMember(OAuthInfoResponse oAuthInfoResponse) {
         User user = User.builder()
-//                .email(oAuthInfoResponse.getEmail())
                 .nickname(oAuthInfoResponse.getNickname())
+                .profileImage(oAuthInfoResponse.getProfileImage())
                 .oAuthProvider(oAuthInfoResponse.getOAuthProvider())
                 .build();
-
         return userRepository.save(user).getId();
     }
 }

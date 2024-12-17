@@ -4,5 +4,6 @@ package com.likelion.rolling_paper.util.oauth;
 public interface OAuthInfoResponse {
     String getEmail();
     String getNickname();
+    String getProfileImage();
     OAuthProvider getOAuthProvider();
 }

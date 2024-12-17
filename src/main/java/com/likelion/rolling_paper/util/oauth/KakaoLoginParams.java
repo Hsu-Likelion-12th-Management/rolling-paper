@@ -2,14 +2,19 @@ package com.likelion.rolling_paper.util.oauth;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-// 카카오 API 요청에 필요한 authorizationCode 가진 클래스
 @Getter
+@Slf4j
 @NoArgsConstructor
 public class KakaoLoginParams implements OAuthLoginParams {
     private String authorizationCode;
+
+    public KakaoLoginParams(String authorizationCode) {
+        this.authorizationCode = authorizationCode;
+    }
 
     @Override
     public OAuthProvider oAuthProvider() {
