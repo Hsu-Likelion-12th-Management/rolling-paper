@@ -1,5 +1,7 @@
 package com.likelion.rolling_paper.util.config;
 
+import com.likelion.rolling_paper.util.exception.CustomAccessDeniedHandler;
+import com.likelion.rolling_paper.util.jwt.handler.CustomAuthenticationEntryPoint;
 import com.likelion.rolling_paper.util.jwt.util.JwtFilter;
 import com.likelion.rolling_paper.util.jwt.util.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +22,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final JwtTokenProvider jwtFilterProvider;
+    private final CustomAccessDeniedHandler customAccessDeniedHandler;
+    private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
@@ -33,15 +37,15 @@ public class SecurityConfig {
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",
-                                "/api/auth/kakao",
-                                "/**"
+                                "/api/auth/kakao"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(new JwtFilter(jwtFilterProvider), UsernamePasswordAuthenticationFilter.class)
-//                .exceptionHandling(exceptionHandling -> exceptionHandling
-//                        .accessDeniedHandler(customAccessDeniedHandler))
-//                .addFilterBefore(new JwtTokenFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling(exceptionHandling -> exceptionHandling
+                        .accessDeniedHandler(customAccessDeniedHandler) // 권한 오류
+                        .authenticationEntryPoint(customAuthenticationEntryPoint) // 인증 오류
+                )
                 .build();
     }
 }

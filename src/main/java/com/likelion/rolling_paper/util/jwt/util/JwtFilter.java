@@ -22,6 +22,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
     private final JwtTokenProvider jwtTokenProvider;
 
+    /**
     @Override
     protected void doFilterInternal(HttpServletRequest request,HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
@@ -80,4 +81,47 @@ public class JwtFilter extends OncePerRequestFilter {
 
         filterChain.doFilter(request, response);
     }
+    **/
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+
+        try {
+            String authorization = request.getHeader("Authorization");
+
+            if (authorization == null || !authorization.startsWith("Bearer ")) {
+                log.info("[JwtFilter] Token is null or invalid.");
+                filterChain.doFilter(request, response);
+                return;
+            }
+
+            String token = authorization.split(" ")[1];
+
+            if (jwtTokenProvider.isExpired(token)) {
+                throw new IllegalArgumentException("Token is expired.");
+            }
+
+            String uuid = jwtTokenProvider.extractSubject(token);
+
+            UserDto userDto = UserDto.builder()
+                    .username(uuid)
+                    .build();
+
+            CustomOAuth2User customOAuth2User = new CustomOAuth2User(userDto);
+
+            Authentication authToken = new UsernamePasswordAuthenticationToken(
+                    customOAuth2User, null, customOAuth2User.getAuthorities()
+            );
+
+            SecurityContextHolder.getContext().setAuthentication(authToken);
+        } catch (Exception e) {
+            log.error("[JwtFilter] Exception: {}", e.getMessage());
+            SecurityContextHolder.clearContext();
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid JWT Token");
+            return;
+        }
+
+        filterChain.doFilter(request, response);
+    }
+
 }
