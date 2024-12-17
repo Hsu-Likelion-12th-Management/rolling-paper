@@ -28,7 +28,7 @@ public class PaperServiceImpl implements PaperService{
     public RollingPaperInfoRes createRollingPaperPage(Long homeId, String kakaoId) {
         User user = userRepository.getByKakaoId(kakaoId);
         RollingPaperHome paperHome = rollingPaperHomeRepository.getById(homeId);
-        RollingPaper newPaper = rollingPaperRepository.save(RollingPaper.toEntity(user.getNickname(), paperHome));
+        RollingPaper newPaper = rollingPaperRepository.save(RollingPaper.toEntity(user, paperHome));
         return RollingPaperInfoRes.of(newPaper);
     }
 
