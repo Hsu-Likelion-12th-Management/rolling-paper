@@ -23,9 +23,6 @@ public class User extends BaseEntity {
     @Column(name = "user_id")
     private Long id;
 
-    @Column(name = "kakao_id")
-    private String kakaoId; // 카카오 로그인으로 받은 id
-
     @Column(name = "nickname")
     private String nickname; // 카카오 로그인으로 받은 이름
 
