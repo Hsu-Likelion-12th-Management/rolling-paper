@@ -15,34 +15,6 @@ public class OAuthLoginService {
     private final AuthTokensGenerator authTokensGenerator;
     private final RequestOAuthInfoService requestOAuthInfoService;
 
-    /**
-    public AuthTokens login(String code) {
-        // 인가 코드를 사용하여 KakaoLoginParams 생성
-        KakaoLoginParams params = new KakaoLoginParams(code);
-        OAuthInfoResponse oAuthInfoResponse = requestOAuthInfoService.request(params);
-        Long memberId = findOrCreateMember(oAuthInfoResponse);
-        return authTokensGenerator.generate(memberId);
-    }
-
-    private Long findOrCreateMember(OAuthInfoResponse oAuthInfoResponse) {
-        return userRepository.findByEmail(oAuthInfoResponse.getEmail())
-                .map(User::getId)
-                .orElseGet(() -> newMember(oAuthInfoResponse));
-    }
-
-    private Long newMember(OAuthInfoResponse oAuthInfoResponse) {
-        log.info("oAuthInfoResponse.nickname : " + oAuthInfoResponse.getNickname());
-        log.info("oAuthInfoResponse.profileImage : " + oAuthInfoResponse.getProfileImage());
-
-        User user = User.builder()
-                .nickname(oAuthInfoResponse.getNickname())
-                .profileImage(oAuthInfoResponse.getProfileImage())
-                .oAuthProvider(oAuthInfoResponse.getOAuthProvider())
-                .build();
-        return userRepository.save(user).getId();
-    }
-     **/
-
     public AuthTokens login(String code) {
         // OAuth 인증을 통해 사용자 정보를 가져옴
         OAuthInfoResponse oAuthInfoResponse = requestOAuthInfoService.request(new KakaoLoginParams(code));

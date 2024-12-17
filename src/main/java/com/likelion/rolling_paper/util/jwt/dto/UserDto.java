@@ -10,5 +10,5 @@ import lombok.Setter;
 public class UserDto {
     private String role;
     private String name;
-    private String username; // 이메일로 username 대체
+    private String username; // UUID로 username 대체
 }

@@ -1,7 +1,6 @@
 package com.likelion.rolling_paper.test;
 
 import com.likelion.rolling_paper.util.jwt.dto.CustomOAuth2User;
-import com.likelion.rolling_paper.util.response.SuccessResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

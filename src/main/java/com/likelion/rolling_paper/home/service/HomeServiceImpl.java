@@ -7,7 +7,6 @@ import com.likelion.rolling_paper.home.dto.GetMyRollingPaperHomeRes;
 import com.likelion.rolling_paper.repository.ParticipantRepository;
 import com.likelion.rolling_paper.repository.RollingPaperHomeRepository;
 import com.likelion.rolling_paper.repository.UserRepository;
-import com.likelion.rolling_paper.util.response.SuccessResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;

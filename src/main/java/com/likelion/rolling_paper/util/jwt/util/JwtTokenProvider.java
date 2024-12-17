@@ -68,42 +68,4 @@ public class JwtTokenProvider {
                 .getExpiration()
                 .before(new Date());
     }
-
-    /**
-    // 현재 사용중인 username 받기 - oauth2를 통해 제공받은 이메일
-    public static String getUsername(String token) {
-        return Jwts
-                .parser()
-                .verifyWith(secretKey)
-                .build()
-                .parseSignedClaims(token)
-                .getPayload()
-                .get("username", String.class);
-    }
-
-    public String getRole(String token) {
-        return Jwts
-                .parser()
-                .verifyWith(secretKey)
-                .build()
-                .parseSignedClaims(token)
-                .getPayload()
-                .get("role", String.class);
-    }
-
-    public Boolean isExpired(String token) {
-        return Jwts
-                .parser()
-                .verifyWith(secretKey)
-                .build()
-                .parseSignedClaims(token)
-                .getPayload()
-                .getExpiration()
-                .before(new Date());
-    }
-
-    public String createJwt(String username, String role, Long expiredMs) {
-
-    }
-     **/
 }
