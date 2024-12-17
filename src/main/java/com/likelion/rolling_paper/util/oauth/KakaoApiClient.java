@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -34,6 +35,10 @@ public class KakaoApiClient implements OAuthApiClient {
 
     @Override
     public String requestAccessToken(OAuthLoginParams params) {
+        // 카카오 관련 로그인만을 처리하는 클래스이므로 다운 캐스팅 - code 접근용
+        KakaoLoginParams kakaoLoginParams = (KakaoLoginParams) params;
+        String authorizationCode = kakaoLoginParams.getAuthorizationCode();
+        System.out.println("authorizationCode = " + authorizationCode);
         String url = authUrl + "/oauth/token";
 
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -42,12 +47,16 @@ public class KakaoApiClient implements OAuthApiClient {
         MultiValueMap<String, String> body = params.makeBody();
         body.add("grant_type", GRANT_TYPE);
         body.add("client_id", clientId);
+        body.add("code", authorizationCode);
 
         HttpEntity<?> request = new HttpEntity<>(body, httpHeaders);
 
         KakaoTokens response = restTemplate.postForObject(url, request, KakaoTokens.class);
 
         assert response != null;
+        System.out.println("========accessToken 요청=========");
+        System.out.println(response.getScope());
+
         return response.getAccessToken();
     }
 
@@ -60,10 +69,13 @@ public class KakaoApiClient implements OAuthApiClient {
         httpHeaders.set("Authorization", "Bearer " + accessToken);
 
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
-        body.add("property_keys", "[\"kakao_account.email\", \"kakao_account.profile\", \"kakao_account.profile.profile_image_url\"]");
+        body.add("property_keys", "[\"kakao_account.email\", \"kakao_account.profile\"]");
+        HttpEntity<?> requestEntity = new HttpEntity<>(body, httpHeaders);
 
-        HttpEntity<?> request = new HttpEntity<>(body, httpHeaders);
+        // API 요청
+        ResponseEntity<KakaoInfoResponse> responseEntity
+                = restTemplate.postForEntity(url, requestEntity, KakaoInfoResponse.class);
 
-        return restTemplate.postForObject(url, request, KakaoInfoResponse.class);
+        return responseEntity.getBody();
     }
 }
