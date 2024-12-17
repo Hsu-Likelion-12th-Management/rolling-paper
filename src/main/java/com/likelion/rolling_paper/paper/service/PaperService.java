@@ -5,7 +5,7 @@ import com.likelion.rolling_paper.paper.dto.MessageInfoRes;
 import com.likelion.rolling_paper.paper.dto.RollingPaperInfoRes;
 
 public interface PaperService {
-    RollingPaperInfoRes createRollingPaperPage(Long homeId,String uuid);
+    RollingPaperInfoRes createRollingPaperPage(Long homeId, String kakaoId);
 
-    MessageInfoRes createNewMessage(CreateMessageReq createMessageReq, String uuid);
+    MessageInfoRes createNewMessage(CreateMessageReq createMessageReq, String kakaoId);
 }

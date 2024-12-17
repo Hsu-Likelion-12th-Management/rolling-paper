@@ -45,10 +45,11 @@ public class RollingPaper extends BaseEntity {
     private RollingPaperHome home;
 
     // === 편의 메소드 ===
-    public static RollingPaper toEntity(String name, RollingPaperHome paperHome) {
+    public static RollingPaper toEntity(User user, RollingPaperHome paperHome) {
         return RollingPaper.builder()
                 .state(State.PROGRESS)
-                .name(name)
+                .name(user.getNickname())
+                .owner(user)
                 .home(paperHome)
                 .build();
     }

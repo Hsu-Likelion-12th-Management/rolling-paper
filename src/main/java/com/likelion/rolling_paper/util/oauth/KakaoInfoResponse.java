@@ -1,50 +1,54 @@
 package com.likelion.rolling_paper.util.oauth;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class KakaoInfoResponse implements OAuthInfoResponse {
+@Setter
+public class KakaoInfoResponse implements OAuthInfoResponse{
+    private Long id;
 
     @JsonProperty("kakao_account")
     private KakaoAccount kakaoAccount;
 
-    @Getter
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    static class KakaoAccount {
-        private KakaoProfile profile;
-        private String email;
-    }
-
-    @Getter
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    static class KakaoProfile {
-        private String nickname;
-
-        @JsonProperty("profile_image_url")
-        private String profileImage;
-    }
-
     @Override
     public String getEmail() {
-        return kakaoAccount.email;
+        return kakaoAccount.getEmail();
     }
 
     @Override
     public String getNickname() {
-        return kakaoAccount.profile.nickname;
+        return kakaoAccount.getProfile().getNickname();
     }
 
     @Override
     public String getProfileImage() {
-        return kakaoAccount.profile.profileImage;
+        return kakaoAccount.getProfile().getProfileImageUrl();
     }
 
     @Override
     public OAuthProvider getOAuthProvider() {
         return OAuthProvider.KAKAO;
     }
+}
+
+@Getter
+@Setter
+class KakaoAccount {
+    private String email;
+
+    private Profile profile;
+}
+
+@Getter
+@Setter
+class Profile {
+    private String nickname;
+
+    @JsonProperty("thumbnail_image_url")
+    private String thumbnailImageUrl;
+
+    @JsonProperty("profile_image_url")
+    private String profileImageUrl;
 }

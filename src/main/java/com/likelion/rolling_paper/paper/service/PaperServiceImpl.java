@@ -25,16 +25,16 @@ public class PaperServiceImpl implements PaperService{
     private final MessageRepository messageRepository;
     @Override
     @Transactional
-    public RollingPaperInfoRes createRollingPaperPage(Long homeId, String uuid) {
-        User user = userRepository.getByUuid(UUID.fromString(uuid));
+    public RollingPaperInfoRes createRollingPaperPage(Long homeId, String kakaoId) {
+        User user = userRepository.getByKakaoId(kakaoId);
         RollingPaperHome paperHome = rollingPaperHomeRepository.getById(homeId);
-        RollingPaper newPaper = rollingPaperRepository.save(RollingPaper.toEntity(user.getNickname(), paperHome));
+        RollingPaper newPaper = rollingPaperRepository.save(RollingPaper.toEntity(user, paperHome));
         return RollingPaperInfoRes.of(newPaper);
     }
 
     @Override
-    public MessageInfoRes createNewMessage(CreateMessageReq createMessageReq, String uuid) {
-        User user = userRepository.getByUuid(UUID.fromString(uuid));
+    public MessageInfoRes createNewMessage(CreateMessageReq createMessageReq, String kakaoId) {
+        User user = userRepository.getByKakaoId(kakaoId);
         RollingPaper paper = rollingPaperRepository.getById(createMessageReq.paperId());
         Message message = messageRepository.save(Message.toEntity(user, createMessageReq.content(), paper));
         return MessageInfoRes.of(message);
