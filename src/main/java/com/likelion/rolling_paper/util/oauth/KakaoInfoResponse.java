@@ -23,6 +23,8 @@ public class KakaoInfoResponse implements OAuthInfoResponse {
     @JsonIgnoreProperties(ignoreUnknown = true)
     static class KakaoProfile {
         private String nickname;
+
+        @JsonProperty("profile_image_url")
         private String profileImage;
     }
 

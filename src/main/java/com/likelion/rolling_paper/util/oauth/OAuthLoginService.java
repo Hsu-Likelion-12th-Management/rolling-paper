@@ -3,8 +3,10 @@ package com.likelion.rolling_paper.util.oauth;
 import com.likelion.rolling_paper.domain.User;
 import com.likelion.rolling_paper.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class OAuthLoginService {
@@ -27,6 +29,9 @@ public class OAuthLoginService {
     }
 
     private Long newMember(OAuthInfoResponse oAuthInfoResponse) {
+        log.info("oAuthInfoResponse.nickname : " + oAuthInfoResponse.getNickname());
+        log.info("oAuthInfoResponse.profileImage : " + oAuthInfoResponse.getProfileImage());
+
         User user = User.builder()
                 .nickname(oAuthInfoResponse.getNickname())
                 .profileImage(oAuthInfoResponse.getProfileImage())

@@ -7,7 +7,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
+import java.util.UUID;
 import lombok.*;
 
 @Entity
@@ -30,16 +32,27 @@ public class User extends BaseEntity {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "uuid", nullable = false, unique = true, updatable = false)
+    private UUID uuid;
+
     @Column(name = "profile_image")
     private String profileImage; // 카카오 로그인으로 받은 프로필 이미지
 
     // KAKAO, NAVER.. ETC
     private OAuthProvider oAuthProvider;
 
+    // UUID 자동 생성 설정
+    @PrePersist
+    public void generateUuid() {
+        if (uuid == null) {
+            uuid = UUID.randomUUID();
+        }
+    }
+
     @Builder
-    public User(String kakaoId, String nickname, OAuthProvider oAuthProvider) {
-        this.kakaoId = kakaoId;
+    public User(String nickname, String profileImage, OAuthProvider oAuthProvider) {
         this.nickname = nickname;
+        this.profileImage = profileImage;
         this.oAuthProvider = oAuthProvider;
     }
 }
