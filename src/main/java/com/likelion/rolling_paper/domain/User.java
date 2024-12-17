@@ -26,11 +26,8 @@ public class User extends BaseEntity {
     @Column(name = "nickname")
     private String nickname; // 카카오 로그인으로 받은 이름
 
-    @Column(name = "email")
-    private String email;
-
     @Column(name = "uuid", nullable = false, unique = true, updatable = false)
-    private UUID uuid;
+    private UUID uuid; // 자동 생성 UUID
 
     @Column(name = "profile_image")
     private String profileImage; // 카카오 로그인으로 받은 프로필 이미지
