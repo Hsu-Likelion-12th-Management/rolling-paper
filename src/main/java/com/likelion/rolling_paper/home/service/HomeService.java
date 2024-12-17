@@ -6,6 +6,6 @@ import java.util.List;
 import org.springframework.data.domain.Pageable;
 
 public interface HomeService {
-    Long createRollingPaperHome(String email, CreateHomeReqDto createHomeReqDto);
-    List<GetMyRollingPaperHomeRes> getMyRollingPaperHomes(String email, Pageable pageable);
+    Long createRollingPaperHome(String uuid, CreateHomeReqDto createHomeReqDto);
+    List<GetMyRollingPaperHomeRes> getMyRollingPaperHomes(String uuid, Pageable pageable);
 }
