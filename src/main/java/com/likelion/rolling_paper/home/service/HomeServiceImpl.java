@@ -1,5 +1,6 @@
 package com.likelion.rolling_paper.home.service;
 
+import com.likelion.rolling_paper.domain.Participant;
 import com.likelion.rolling_paper.domain.RollingPaperHome;
 import com.likelion.rolling_paper.domain.User;
 import com.likelion.rolling_paper.home.dto.CreateHomeReqDto;
@@ -27,6 +28,7 @@ public class HomeServiceImpl implements HomeService {
     public Long createRollingPaperHome(String kakaoId, CreateHomeReqDto createHomeReqDto) {
         User user = userRepository.getByKakaoId(kakaoId);
         RollingPaperHome newHome = rollingPaperHomeRepository.save(RollingPaperHome.toEntity(user, createHomeReqDto));
+        participantRepository.save(Participant.toEntity(user, newHome)); // 참여자 추가
         return newHome.getId();
     }
 

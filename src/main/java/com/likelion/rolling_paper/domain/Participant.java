@@ -36,4 +36,12 @@ public class Participant extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    // == 편의 메소드 ==
+    public static Participant toEntity(User user, RollingPaperHome home) {
+        return Participant.builder()
+                .user(user)
+                .home(home)
+                .build();
+    }
 }
