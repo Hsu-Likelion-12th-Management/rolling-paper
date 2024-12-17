@@ -20,8 +20,8 @@ public class AuthTokensGenerator {
         Date accessTokenExpiredAt = new Date(now + ACCESS_TOKEN_EXPIRE_TIME);
         Date refreshTokenExpiredAt = new Date(now + REFRESH_TOKEN_EXPIRE_TIME);
 
-        // UUID를 JWT subject로 설정
-        String subject = user.getUuid().toString();
+        // kakaoId를 JWT subject로 설정
+        String subject = user.getKakaoId().toString();
 
         String accessToken = jwtTokenProvider.generate(subject, accessTokenExpiredAt);
         String refreshToken = jwtTokenProvider.generate(subject, refreshTokenExpiredAt);

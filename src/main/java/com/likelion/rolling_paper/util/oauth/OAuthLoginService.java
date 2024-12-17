@@ -21,14 +21,17 @@ public class OAuthLoginService {
         // Provider 타입에 따라 회원 가입 로직 수정 - 현재는 카카오만 지원
         if (oAuthInfoResponse.getOAuthProvider() == OAuthProvider.KAKAO) {
             KakaoInfoResponse kakaoInfoResponse = (KakaoInfoResponse) oAuthInfoResponse;
-            User user = userRepository.findByKakaoId(String.valueOf(kakaoInfoResponse.getId()))
+            String kakaoId = String.valueOf(kakaoInfoResponse.getId());
+            User user = userRepository.findByKakaoId(kakaoId)
                     .orElseGet(() -> userRepository.save(
-                            User.builder()
+                            User.builder() // 존재하지 않을경우 회원 생성
+                                    .kakaoId(kakaoId)
                                     .nickname(oAuthInfoResponse.getNickname())
                                     .profileImage(oAuthInfoResponse.getProfileImage())
                                     .oAuthProvider(oAuthInfoResponse.getOAuthProvider())
                                     .build()
                     ));
+            // 정보 업데이트 코드 생략
             return authTokensGenerator.generate(user);
         }
         return null;

@@ -40,10 +40,10 @@ public class JwtFilter extends OncePerRequestFilter {
                 throw new IllegalArgumentException("Token is expired.");
             }
 
-            String uuid = jwtTokenProvider.extractSubject(token);
+            String kakaoId = jwtTokenProvider.extractSubject(token);
 
             UserDto userDto = UserDto.builder()
-                    .username(uuid)
+                    .username(kakaoId)
                     .build();
 
             CustomOAuth2User customOAuth2User = new CustomOAuth2User(userDto);
