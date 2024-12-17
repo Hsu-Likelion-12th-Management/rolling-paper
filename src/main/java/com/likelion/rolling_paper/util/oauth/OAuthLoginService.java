@@ -18,19 +18,19 @@ public class OAuthLoginService {
     public AuthTokens login(String code) {
         // OAuth 인증을 통해 사용자 정보를 가져옴
         OAuthInfoResponse oAuthInfoResponse = requestOAuthInfoService.request(new KakaoLoginParams(code));
-
-        // UUID 기반으로 사용자 찾기 또는 신규 생성
-        UUID uuid = UUID.randomUUID(); // 새 UUID 생성 (OAuth 제공자에서 관리하지 않으므로 새로 생성)
-
-        User user = userRepository.findByUuid(uuid)
-                .orElseGet(() -> userRepository.save(
-                        User.builder()
-                                .nickname(oAuthInfoResponse.getNickname())
-                                .profileImage(oAuthInfoResponse.getProfileImage())
-                                .oAuthProvider(oAuthInfoResponse.getOAuthProvider())
-                                .build()
-                ));
-
-        return authTokensGenerator.generate(user);
+        // Provider 타입에 따라 회원 가입 로직 수정 - 현재는 카카오만 지원
+        if (oAuthInfoResponse.getOAuthProvider() == OAuthProvider.KAKAO) {
+            KakaoInfoResponse kakaoInfoResponse = (KakaoInfoResponse) oAuthInfoResponse;
+            User user = userRepository.findByKakaoId(String.valueOf(kakaoInfoResponse.getId()))
+                    .orElseGet(() -> userRepository.save(
+                            User.builder()
+                                    .nickname(oAuthInfoResponse.getNickname())
+                                    .profileImage(oAuthInfoResponse.getProfileImage())
+                                    .oAuthProvider(oAuthInfoResponse.getOAuthProvider())
+                                    .build()
+                    ));
+            return authTokensGenerator.generate(user);
+        }
+        return null;
     }
 }

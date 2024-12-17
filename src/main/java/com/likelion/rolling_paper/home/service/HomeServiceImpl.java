@@ -25,14 +25,14 @@ public class HomeServiceImpl implements HomeService {
     @Override
     @Transactional
     public Long createRollingPaperHome(String uuid, CreateHomeReqDto createHomeReqDto) {
-        User user = userRepository.getByUuid(UUID.fromString(uuid));
+        User user = userRepository.getByKakaoId(UUID.fromString(uuid));
         RollingPaperHome newHome = rollingPaperHomeRepository.save(RollingPaperHome.toEntity(user, createHomeReqDto));
         return newHome.getId();
     }
 
     @Override
     public List<GetMyRollingPaperHomeRes> getMyRollingPaperHomes(String uuid, Pageable pageable) {
-        User user = userRepository.getByUuid(UUID.fromString(uuid));
+        User user = userRepository.getByKakaoId(UUID.fromString(uuid));
         List<RollingPaperHome> myRollingPaperHome = participantRepository.findMyRollingPaperHome(user, pageable);
         List<GetMyRollingPaperHomeRes> responseDtoList = new ArrayList<>();
         for (RollingPaperHome home: myRollingPaperHome) {

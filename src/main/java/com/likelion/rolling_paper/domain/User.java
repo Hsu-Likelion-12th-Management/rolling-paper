@@ -30,22 +30,14 @@ public class User extends BaseEntity {
     @Column(name = "nickname")
     private String nickname; // 카카오 로그인으로 받은 이름
 
-    @Column(name = "uuid", nullable = false, unique = true, updatable = false)
-    private UUID uuid; // 자동 생성 UUID
+    @Column(name = "kakao_id", nullable = false, unique = true, updatable = false)
+    private String kakaoId;
 
     @Column(name = "profile_image")
     private String profileImage; // 카카오 로그인으로 받은 프로필 이미지
 
     // KAKAO, NAVER.. ETC
     private OAuthProvider oAuthProvider;
-
-    // UUID 자동 생성 설정
-    @PrePersist
-    public void generateUuid() {
-        if (uuid == null) {
-            uuid = UUID.randomUUID();
-        }
-    }
 
     @Builder
     public User(String nickname, String profileImage, OAuthProvider oAuthProvider) {
