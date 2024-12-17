@@ -2,7 +2,6 @@ package com.likelion.rolling_paper.home.service;
 
 import com.likelion.rolling_paper.home.dto.CreateHomeReqDto;
 import com.likelion.rolling_paper.home.dto.GetMyRollingPaperHomeRes;
-import com.likelion.rolling_paper.util.response.SuccessResponse;
 import java.util.List;
 import org.springframework.data.domain.Pageable;
 
