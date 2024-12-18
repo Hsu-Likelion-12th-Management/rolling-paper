@@ -9,7 +9,7 @@ import java.util.List;
 public interface RollingPaperService {
     CreateRollingPaperRes createRollingPaper(String kakaoId);
     List<GetRollingPaperListRes> getRollingPaperList();
-    void getMessageWritingIsAvailable(String kakaoId);
+    void getMessageWritingIsAvailable(String kakaoId, Long paperId);
 
     MessageInfoRes createNewMessage(CreateMessageReq createMessageReq, String kakaoId);
 }

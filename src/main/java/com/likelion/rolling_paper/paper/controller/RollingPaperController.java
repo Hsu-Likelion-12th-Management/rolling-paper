@@ -11,6 +11,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,9 +50,10 @@ public class RollingPaperController implements RollingPaperControllerApi {
      */
     @GetMapping("/{paperId}/check")
     public SuccessResponse<Void> getMessageWritingIsAvailable(
-            @AuthenticationPrincipal CustomOAuth2User customOAuth2User
+            @AuthenticationPrincipal CustomOAuth2User customOAuth2User,
+            @PathVariable("paperId") Long paperId
     ) {
-        rollingPaperService.getMessageWritingIsAvailable(customOAuth2User.getUsername());
+        rollingPaperService.getMessageWritingIsAvailable(customOAuth2User.getUsername(), paperId);
         return SuccessResponse.of(null);
     }
 

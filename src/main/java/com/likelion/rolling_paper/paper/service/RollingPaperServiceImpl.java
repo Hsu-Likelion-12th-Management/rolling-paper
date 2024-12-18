@@ -48,7 +48,7 @@ public class RollingPaperServiceImpl implements RollingPaperService {
     }
 
     @Override
-    public void getMessageWritingIsAvailable(String kakaoId) {
+    public void getMessageWritingIsAvailable(String kakaoId, Long paperId) {
 
         // 존재하지 않는 눈덩이로 들어왔을 때 (ROLLING_PAPER_NOT_FOUND_404)
 
