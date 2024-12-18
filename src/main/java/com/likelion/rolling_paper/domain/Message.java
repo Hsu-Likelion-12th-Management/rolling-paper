@@ -11,6 +11,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.*;
 
 @Entity
@@ -24,8 +26,11 @@ public class Message extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "message_id")
     private Long id;
+
+    @Column(columnDefinition = "TEXT")
     private String content; // 작성된 메시지 내용
 
+    private Integer randomEmojiValue; // 랜덤 이모지 (0~6)
 
     // == 연관 관계 매핑 ==
     @ManyToOne(fetch = FetchType.LAZY)
@@ -37,9 +42,10 @@ public class Message extends BaseEntity {
     private RollingPaper rollingPaper;
 
     // == 편의 메소드 ==
-    public static Message toEntity(User user, String content, RollingPaper paper) {
+    public static Message toEntity(User user, String content, Integer randomEmojiValue, RollingPaper paper) {
         return Message.builder()
                 .content(content)
+                .randomEmojiValue(randomEmojiValue)
                 .user(user)
                 .rollingPaper(paper)
                 .build();
