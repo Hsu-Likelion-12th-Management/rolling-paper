@@ -67,7 +67,7 @@ public interface RollingPaperControllerApi {
                                 }
                             ]
                         }
-                    """), schema = @Schema(implementation = SuccessResponse.class))),})
+                    """), schema = @Schema(implementation = SuccessResponse.class)))})
     @GetMapping("/list")
     SuccessResponse<List<GetRollingPaperListRes>> getRollingPaperList(
             @AuthenticationPrincipal CustomOAuth2User customOAuth2User);
