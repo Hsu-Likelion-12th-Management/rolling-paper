@@ -40,17 +40,12 @@ public class RollingPaper extends BaseEntity {
     @JoinColumn(name = "owner_id")
     private User owner;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "home_id")
-    private RollingPaperHome home;
-
     // === 편의 메소드 ===
-    public static RollingPaper toEntity(User user, RollingPaperHome paperHome) {
+    public static RollingPaper toEntity(User user) {
         return RollingPaper.builder()
                 .state(State.PROGRESS)
                 .name(user.getNickname())
                 .owner(user)
-                .home(paperHome)
                 .build();
     }
 
