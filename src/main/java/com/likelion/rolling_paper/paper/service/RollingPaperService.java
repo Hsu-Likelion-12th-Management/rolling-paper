@@ -1,8 +1,8 @@
 package com.likelion.rolling_paper.paper.service;
 
+import com.likelion.rolling_paper.paper.dto.CreateRollingPaperRes;
 import com.likelion.rolling_paper.paper.dto.GetRollingPaperIsFinishRes;
 import com.likelion.rolling_paper.paper.dto.GetRollingPaperListRes;
-import com.likelion.rolling_paper.paper.dto.CreateRollingPaperRes;
 import java.util.List;
 
 public interface RollingPaperService {

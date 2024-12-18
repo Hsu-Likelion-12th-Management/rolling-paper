@@ -175,27 +175,4 @@ public interface RollingPaperControllerApi {
                     """), schema = @Schema(implementation = SuccessResponse.class)))})
     @PutMapping("/finish")
     SuccessResponse<Void> changeRollingPaperStatusToFinish(@AuthenticationPrincipal CustomOAuth2User customOAuth2User);
-
-//    @Operation(summary = "눈덩이에 메시지 남기기")
-//    @ApiResponses(value = {
-//            @ApiResponse(responseCode = "200", description = "성공",
-//                    content = @Content(mediaType = "application/json",
-//                            examples = @ExampleObject(value = """
-//                                    {
-//                                        "timestamp": "2024-11-16T00:51:05.668577",
-//                                        "isSuccess": true,
-//                                        "code": "200",
-//                                        "message": "호출에 성공하였습니다.",
-//                                        "data": {
-//                                            "paperId": 1,
-//                                            "name": "이이름"
-//                                        }
-//                                    }
-//                                    """),
-//                            schema = @Schema(implementation = SuccessResponse.class)))
-//    })
-//    @PostMapping
-//    SuccessResponse<MessageInfoRes> createNewMessage(
-//            @AuthenticationPrincipal CustomOAuth2User customOAuth2User,
-//            @RequestBody CreateMessageReq createMessageReq);
 }
