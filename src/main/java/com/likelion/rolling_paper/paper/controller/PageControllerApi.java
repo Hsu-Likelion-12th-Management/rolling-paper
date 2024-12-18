@@ -33,7 +33,7 @@ public interface PageControllerApi {
                                         "data": {
                                             "pageId": 1,
                                             "name": "이이름"
-                                        },
+                                        }
                                     }
                                     """),
                             schema = @Schema(implementation = SuccessResponse.class)))
@@ -56,7 +56,7 @@ public interface PageControllerApi {
                                         "data": {
                                             "pageId": 1,
                                             "name": "이이름"
-                                        },
+                                        }
                                     }
                                     """),
                             schema = @Schema(implementation = SuccessResponse.class)))

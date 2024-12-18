@@ -23,6 +23,9 @@ public class AuthController {
 
         // 프론트엔드로 리다이렉트하면서 JWT 토큰 전달
         String frontendUrl = "http://localhost:5173/home?token=" + res.getAccessToken();
+
+        // TODO: 프론트 배포 주소
+//        String frontendUrl = "https://boogiball.netlify.app/home?token=" + res.getAccessToken();
         response.sendRedirect(frontendUrl);
     }
 }
