@@ -1,4 +1,4 @@
-package com.likelion.rolling_paper.paper.dto;
+package com.likelion.rolling_paper.message.dto;
 
 import com.likelion.rolling_paper.domain.Message;
 
