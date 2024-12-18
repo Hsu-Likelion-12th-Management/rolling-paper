@@ -77,4 +77,12 @@ public class RollingPaperController implements RollingPaperControllerApi {
         rollingPaperService.changeRollingPaperStatusToFinish(customOAuth2User.getUsername());
         return SuccessResponse.of(null);
     }
+
+    @GetMapping("/{paperId}/list")
+    public SuccessResponse<List<GetRollingPaperMessageRes>> getRollingPaperMessageRes(
+            @AuthenticationPrincipal CustomOAuth2User customOAuth2User
+    ) {
+        List<GetRollingPaperMessageRes> res = rollingPaperService.getRollingPaperMessageRes(customOAuth2User.getUsername());
+        return SuccessResponse.of(res);
+    }
 }
