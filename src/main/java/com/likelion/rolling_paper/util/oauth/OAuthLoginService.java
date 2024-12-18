@@ -2,7 +2,6 @@ package com.likelion.rolling_paper.util.oauth;
 
 import com.likelion.rolling_paper.domain.User;
 import com.likelion.rolling_paper.repository.UserRepository;
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
