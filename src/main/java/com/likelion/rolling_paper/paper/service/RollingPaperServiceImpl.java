@@ -6,6 +6,7 @@ import com.likelion.rolling_paper.domain.User;
 import com.likelion.rolling_paper.message.exception.MessageAlreadyExistException;
 import com.likelion.rolling_paper.paper.dto.CreateMessageReq;
 import com.likelion.rolling_paper.paper.dto.CreateRollingPaperRes;
+import com.likelion.rolling_paper.paper.dto.GetRollingPaperIsFinishRes;
 import com.likelion.rolling_paper.paper.dto.GetRollingPaperListRes;
 import com.likelion.rolling_paper.paper.dto.MessageInfoRes;
 import com.likelion.rolling_paper.paper.exception.RollingPaperAlreadyExistException;
@@ -75,6 +76,13 @@ public class RollingPaperServiceImpl implements RollingPaperService {
         }
 
         // 그게 아니라면 메시지 작성 가능
+    }
+
+    @Override
+    public GetRollingPaperIsFinishRes getRollingPaperIsFinishRes(String kakaoId) {
+        User user = userRepository.getByKakaoId(kakaoId);
+        RollingPaper rollingPaper = rollingPaperRepository.getByOwner(user);
+        return GetRollingPaperIsFinishRes.of(rollingPaper);
     }
 
     @Transactional

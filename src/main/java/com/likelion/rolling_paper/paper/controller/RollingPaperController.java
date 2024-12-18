@@ -1,6 +1,7 @@
 package com.likelion.rolling_paper.paper.controller;
 
 import com.likelion.rolling_paper.paper.dto.CreateRollingPaperRes;
+import com.likelion.rolling_paper.paper.dto.GetRollingPaperIsFinishRes;
 import com.likelion.rolling_paper.paper.dto.GetRollingPaperListRes;
 import com.likelion.rolling_paper.paper.service.RollingPaperService;
 import com.likelion.rolling_paper.util.jwt.dto.CustomOAuth2User;
@@ -53,6 +54,17 @@ public class RollingPaperController implements RollingPaperControllerApi {
     ) {
         rollingPaperService.getMessageWritingIsAvailable(customOAuth2User.getUsername(), paperId);
         return SuccessResponse.of(null);
+    }
+
+    /**
+     * 내 눈덩이 작성이 종료되었는지 확인
+     */
+    @GetMapping("/finish")
+    public SuccessResponse<GetRollingPaperIsFinishRes> getRollingPaperIsFinishRes(
+            @AuthenticationPrincipal CustomOAuth2User customOAuth2User
+    ) {
+        GetRollingPaperIsFinishRes res = rollingPaperService.getRollingPaperIsFinishRes(customOAuth2User.getUsername());
+        return SuccessResponse.of(res);
     }
 
     /**

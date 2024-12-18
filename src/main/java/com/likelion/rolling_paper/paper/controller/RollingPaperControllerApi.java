@@ -1,6 +1,7 @@
 package com.likelion.rolling_paper.paper.controller;
 
 import com.likelion.rolling_paper.paper.dto.CreateRollingPaperRes;
+import com.likelion.rolling_paper.paper.dto.GetRollingPaperIsFinishRes;
 import com.likelion.rolling_paper.paper.dto.GetRollingPaperListRes;
 import com.likelion.rolling_paper.util.jwt.dto.CustomOAuth2User;
 import com.likelion.rolling_paper.util.response.ErrorResponse;
@@ -141,6 +142,24 @@ public interface RollingPaperControllerApi {
     SuccessResponse<Void> getMessageWritingIsAvailable(
             @AuthenticationPrincipal CustomOAuth2User customOAuth2User,
             @PathVariable("paperId") Long paperId
+    );
+
+    @Operation(summary = "내 눈덩이 작성이 종료되었는지 확인")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "눈덩이 작성 종료 여부 조회 성공 - 메시지 작성 종료 상태(true), 메시지 작성 가능 상태(false)", content = @Content(mediaType = "application/json", examples = @ExampleObject(value = """
+                        {
+                            "timestamp": "2024-11-03T05:08:45.036657",
+                            "isSuccess": true,
+                            "code": "200",
+                            "message": "호출에 성공하였습니다.",
+                            "data": {
+                                "isFinish": true
+                            }
+                        }
+                    """), schema = @Schema(implementation = SuccessResponse.class)))})
+    @GetMapping("/finish")
+    SuccessResponse<GetRollingPaperIsFinishRes> getRollingPaperIsFinishRes(
+            @AuthenticationPrincipal CustomOAuth2User customOAuth2User
     );
 
     @Operation(summary = "내 눈덩이 작성 종료")
