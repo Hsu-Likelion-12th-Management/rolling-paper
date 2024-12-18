@@ -1,6 +1,7 @@
 package com.likelion.rolling_paper.paper.controller;
 
 import com.likelion.rolling_paper.paper.dto.CreateMessageReq;
+import com.likelion.rolling_paper.paper.dto.GetRollingPaperListRes;
 import com.likelion.rolling_paper.paper.dto.MessageInfoRes;
 import com.likelion.rolling_paper.paper.dto.CreateRollingPaperRes;
 import com.likelion.rolling_paper.paper.service.RollingPaperService;
