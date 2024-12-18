@@ -5,7 +5,7 @@ import com.likelion.rolling_paper.domain.RollingPaper;
 import com.likelion.rolling_paper.domain.User;
 import com.likelion.rolling_paper.paper.dto.CreateMessageReq;
 import com.likelion.rolling_paper.paper.dto.MessageInfoRes;
-import com.likelion.rolling_paper.paper.dto.CreatePaperRes;
+import com.likelion.rolling_paper.paper.dto.CreateRollingPaperRes;
 import com.likelion.rolling_paper.repository.MessageRepository;
 import com.likelion.rolling_paper.repository.RollingPaperRepository;
 import com.likelion.rolling_paper.repository.UserRepository;
@@ -16,17 +16,17 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class PaperServiceImpl implements PaperService {
+public class PaperServiceImpl implements RollingPaperService {
     private final UserRepository userRepository;
     private final RollingPaperRepository rollingPaperRepository;
     private final MessageRepository messageRepository;
 
     @Override
     @Transactional
-    public CreatePaperRes createPaper(String kakaoId) {
+    public CreateRollingPaperRes createPaper(String kakaoId) {
         User user = userRepository.getByKakaoId(kakaoId);
         RollingPaper newPaper = rollingPaperRepository.save(RollingPaper.toEntity(user));
-        return CreatePaperRes.of(newPaper);
+        return CreateRollingPaperRes.of(newPaper);
     }
 
     @Override

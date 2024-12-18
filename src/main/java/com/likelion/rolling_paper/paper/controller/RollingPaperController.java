@@ -2,8 +2,8 @@ package com.likelion.rolling_paper.paper.controller;
 
 import com.likelion.rolling_paper.paper.dto.CreateMessageReq;
 import com.likelion.rolling_paper.paper.dto.MessageInfoRes;
-import com.likelion.rolling_paper.paper.dto.CreatePaperRes;
-import com.likelion.rolling_paper.paper.service.PaperService;
+import com.likelion.rolling_paper.paper.dto.CreateRollingPaperRes;
+import com.likelion.rolling_paper.paper.service.RollingPaperService;
 import com.likelion.rolling_paper.util.jwt.dto.CustomOAuth2User;
 import com.likelion.rolling_paper.util.response.SuccessResponse;
 import lombok.RequiredArgsConstructor;
@@ -17,17 +17,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("api/paper")
 //public class PaperController implements PaperControllerApi {
-public class PaperController {
-    private final PaperService paperService;
+public class RollingPaperController {
+    private final RollingPaperService rollingPaperService;
 
     /**
      * 내 눈덩이 페이지 생성하기
      */
     @PostMapping
-    public SuccessResponse<CreatePaperRes> createPaper(
+    public SuccessResponse<CreateRollingPaperRes> createRollingPaper(
             @AuthenticationPrincipal CustomOAuth2User customOAuth2User
     ) {
-        CreatePaperRes res = paperService.createPaper(customOAuth2User.getUsername());
+        CreateRollingPaperRes res = rollingPaperService.createPaper(customOAuth2User.getUsername());
         return SuccessResponse.of(res);
     }
 
@@ -35,7 +35,7 @@ public class PaperController {
     public SuccessResponse<MessageInfoRes> createNewMessage(
             @AuthenticationPrincipal CustomOAuth2User customOAuth2User,
             @RequestBody CreateMessageReq createMessageReq) {
-        MessageInfoRes res = paperService.createNewMessage(createMessageReq, customOAuth2User.getUsername());
+        MessageInfoRes res = rollingPaperService.createNewMessage(createMessageReq, customOAuth2User.getUsername());
         return SuccessResponse.of(res);
     }
 }
