@@ -24,8 +24,9 @@ public class Message extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "message_id")
     private Long id;
-    private String content; // 작성된 메시지 내용
 
+    @Column(columnDefinition = "TEXT")
+    private String content; // 작성된 메시지 내용
 
     // == 연관 관계 매핑 ==
     @ManyToOne(fetch = FetchType.LAZY)
