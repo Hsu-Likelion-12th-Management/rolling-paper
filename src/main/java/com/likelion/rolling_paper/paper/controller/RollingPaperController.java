@@ -30,11 +30,11 @@ public class RollingPaperController implements RollingPaperControllerApi {
         return SuccessResponse.of(res);
     }
 
-    @PostMapping("/message")
-    public SuccessResponse<MessageInfoRes> createNewMessage(
-            @AuthenticationPrincipal CustomOAuth2User customOAuth2User,
-            @RequestBody CreateMessageReq createMessageReq) {
-        MessageInfoRes res = rollingPaperService.createNewMessage(createMessageReq, customOAuth2User.getUsername());
-        return SuccessResponse.of(res);
-    }
+//    @PostMapping("/message")
+//    public SuccessResponse<MessageInfoRes> createNewMessage(
+//            @AuthenticationPrincipal CustomOAuth2User customOAuth2User,
+//            @RequestBody CreateMessageReq createMessageReq) {
+//        MessageInfoRes res = rollingPaperService.createNewMessage(createMessageReq, customOAuth2User.getUsername());
+//        return SuccessResponse.of(res);
+//    }
 }
