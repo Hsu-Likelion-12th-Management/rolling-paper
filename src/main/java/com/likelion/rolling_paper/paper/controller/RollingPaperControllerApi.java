@@ -75,7 +75,9 @@ public interface RollingPaperControllerApi {
 
     @Operation(summary = "눈덩이 메시지 작성 가능 여부 확인")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "작성 가능", content = @Content(mediaType = "application/json", examples = @ExampleObject(value = """
+            @ApiResponse(responseCode = "200", description = "작성 가능",
+                    content = @Content(mediaType = "application/json",
+                            examples = @ExampleObject(value = """
                     {
                         "timestamp": "2024-12-19T01:35:48.578204",
                         "isSuccess": true,
@@ -83,8 +85,11 @@ public interface RollingPaperControllerApi {
                         "message": "호출에 성공하였습니다.",
                         "data": null
                     }
-                    """))),
-            @ApiResponse(responseCode = "400", description = "눈덩이 주인이 메시지 작성을 종료", content = @Content(mediaType = "application/json", examples = @ExampleObject(value = """
+                    """),
+                            schema = @Schema(implementation = SuccessResponse.class))),
+            @ApiResponse(responseCode = "400", description = "눈덩이 주인이 메시지 작성을 종료",
+                    content = @Content(mediaType = "application/json",
+                            examples = @ExampleObject(value = """
                     {
                         "timestamp": "2024-12-19T01:41:09.799386",
                         "isSuccess": false,
@@ -92,8 +97,11 @@ public interface RollingPaperControllerApi {
                         "message": "눈덩이 주인이 메시지 작성을 종료하였습니다.",
                         "httpStatus": 400
                     }
-                    """))),
-            @ApiResponse(responseCode = "401", description = "눈덩이 주인 본인은 작성 불가", content = @Content(mediaType = "application/json", examples = @ExampleObject(value = """
+                    """),
+                            schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse(responseCode = "401", description = "눈덩이 주인 본인은 작성 불가",
+                    content = @Content(mediaType = "application/json",
+                            examples = @ExampleObject(value = """
                     {
                         "timestamp": "2024-12-19T01:41:09.799386",
                         "isSuccess": false,
@@ -101,8 +109,11 @@ public interface RollingPaperControllerApi {
                         "message": "눈덩이 주인 본인은 작성할 수 없습니다.",
                         "httpStatus": 401
                     }
-                    """))),
-            @ApiResponse(responseCode = "404", description = "존재하지 않는 롤링페이퍼에 접근", content = @Content(mediaType = "application/json", examples = @ExampleObject(value = """
+                    """),
+                            schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse(responseCode = "404", description = "존재하지 않는 롤링페이퍼에 접근",
+                    content = @Content(mediaType = "application/json",
+                            examples = @ExampleObject(value = """
                     {
                         "timestamp": "2024-12-19T01:36:11.930022",
                         "isSuccess": false,
@@ -110,8 +121,11 @@ public interface RollingPaperControllerApi {
                         "message": "존재하지 않는 롤링페이퍼입니다.",
                         "httpStatus": 404
                     }
-                    """))),
-            @ApiResponse(responseCode = "409", description = "이미 작성한 롤링페이퍼에는 중복 작성 불가", content = @Content(mediaType = "application/json", examples = @ExampleObject(value = """
+                    """),
+                            schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse(responseCode = "409", description = "이미 작성한 롤링페이퍼에는 중복 작성 불가",
+                    content = @Content(mediaType = "application/json",
+                            examples = @ExampleObject(value = """
                     {
                         "timestamp": "2024-12-19T01:42:36.452182",
                         "isSuccess": false,
@@ -119,8 +133,10 @@ public interface RollingPaperControllerApi {
                         "message": "이 눈덩이에는 이미 작성했습니다.",
                         "httpStatus": 409
                     }
-                    """)))
+                    """),
+                            schema = @Schema(implementation = ErrorResponse.class)))
     })
+
     @GetMapping("/{paperId}/check")
     SuccessResponse<Void> getMessageWritingIsAvailable(
             @AuthenticationPrincipal CustomOAuth2User customOAuth2User,
