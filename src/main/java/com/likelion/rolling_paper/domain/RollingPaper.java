@@ -32,7 +32,7 @@ public class RollingPaper extends BaseEntity {
 
     private String name; // 스노우볼 이름
 
-    private boolean isFinish; // 작성 종료 여부
+    private Boolean isFinish; // 작성 종료 여부
 
     // == 연관 관계 매핑 == //
     @OneToOne(fetch = FetchType.LAZY)

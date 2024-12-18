@@ -13,7 +13,7 @@ public record GetRollingPaperListRes(
         return new GetRollingPaperListRes(
                 paper.getId(),
                 paper.getName(),
-                paper.isFinish()
+                paper.getIsFinish()
         );
     }
 
