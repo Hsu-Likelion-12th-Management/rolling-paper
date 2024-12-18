@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/paper/")
-public class PaperController implements PaperControllerApi {
+//public class PaperController implements PaperControllerApi {
+public class PaperController {
     private final PaperService paperService;
 
-    @Override
     @PostMapping("{homeId}/make")
     public SuccessResponse<RollingPaperInfoRes> createRollingPaperPage(
             @AuthenticationPrincipal CustomOAuth2User customOAuth2User,
@@ -29,7 +29,6 @@ public class PaperController implements PaperControllerApi {
         return SuccessResponse.of(res);
     }
 
-    @Override
     @PostMapping("/message")
     public SuccessResponse<MessageInfoRes> createNewMessage(
             @AuthenticationPrincipal CustomOAuth2User customOAuth2User,
