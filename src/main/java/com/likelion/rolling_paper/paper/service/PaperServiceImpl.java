@@ -6,6 +6,7 @@ import com.likelion.rolling_paper.domain.User;
 import com.likelion.rolling_paper.paper.dto.CreateMessageReq;
 import com.likelion.rolling_paper.paper.dto.MessageInfoRes;
 import com.likelion.rolling_paper.paper.dto.CreateRollingPaperRes;
+import com.likelion.rolling_paper.paper.exception.RollingPaperAlreadyExistException;
 import com.likelion.rolling_paper.repository.MessageRepository;
 import com.likelion.rolling_paper.repository.RollingPaperRepository;
 import com.likelion.rolling_paper.repository.UserRepository;
@@ -25,6 +26,12 @@ public class PaperServiceImpl implements RollingPaperService {
     @Transactional
     public CreateRollingPaperRes createRollingPaper(String kakaoId) {
         User user = userRepository.getByKakaoId(kakaoId);
+
+        rollingPaperRepository.findByOwner(user)
+            .ifPresent(existingPaper -> {
+                throw new RollingPaperAlreadyExistException();
+            });
+
         RollingPaper newPaper = rollingPaperRepository.save(RollingPaper.toEntity(user));
         return CreateRollingPaperRes.of(newPaper);
     }
