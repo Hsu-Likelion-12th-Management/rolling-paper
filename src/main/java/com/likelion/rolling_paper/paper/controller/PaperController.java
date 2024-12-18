@@ -16,16 +16,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/paper/")
+@RequestMapping("api/paper")
 //public class PaperController implements PaperControllerApi {
 public class PaperController {
     private final PaperService paperService;
 
-    @PostMapping("{homeId}/make")
-    public SuccessResponse<RollingPaperInfoRes> createRollingPaperPage(
-            @AuthenticationPrincipal CustomOAuth2User customOAuth2User,
-            @PathVariable("homeId") Long homeId) {
-        RollingPaperInfoRes res = paperService.createRollingPaperPage(homeId, customOAuth2User.getUsername());
+    /**
+     * 내 눈덩이 페이지 생성하기
+     */
+    @PostMapping
+    public SuccessResponse<RollingPaperInfoRes> createPaper(
+            @AuthenticationPrincipal CustomOAuth2User customOAuth2User
+    ) {
+        RollingPaperInfoRes res = paperService.createRollingPaperPage(customOAuth2User.getUsername());
         return SuccessResponse.of(res);
     }
 
