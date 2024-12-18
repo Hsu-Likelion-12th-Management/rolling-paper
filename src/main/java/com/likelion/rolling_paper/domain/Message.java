@@ -11,6 +11,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.*;
 
 @Entity
@@ -27,6 +29,8 @@ public class Message extends BaseEntity {
 
     @Column(columnDefinition = "TEXT")
     private String content; // 작성된 메시지 내용
+
+    private Integer randomImojiValue; // 랜덤 이모지 (0~6)
 
     // == 연관 관계 매핑 ==
     @ManyToOne(fetch = FetchType.LAZY)
