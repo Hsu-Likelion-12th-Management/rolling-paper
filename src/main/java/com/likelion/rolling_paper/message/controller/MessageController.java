@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/message")
-public class MessageController {
+public class MessageController implements MessageControllerApi {
     private final MessageService messageService;
 
     @PostMapping
