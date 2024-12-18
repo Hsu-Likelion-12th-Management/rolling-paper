@@ -16,14 +16,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class PaperServiceImpl implements PaperService{
+public class PaperServiceImpl implements PaperService {
     private final UserRepository userRepository;
     private final RollingPaperRepository rollingPaperRepository;
     private final MessageRepository messageRepository;
 
     @Override
     @Transactional
-    public RollingPaperInfoRes createRollingPaperPage(Long homeId, String kakaoId) {
+    public RollingPaperInfoRes createRollingPaperPage(String kakaoId) {
         User user = userRepository.getByKakaoId(kakaoId);
         RollingPaper newPaper = rollingPaperRepository.save(RollingPaper.toEntity(user));
         return RollingPaperInfoRes.of(newPaper);
