@@ -3,16 +3,18 @@ package com.likelion.rolling_paper.paper.service;
 import com.likelion.rolling_paper.domain.Message;
 import com.likelion.rolling_paper.domain.RollingPaper;
 import com.likelion.rolling_paper.domain.User;
+import com.likelion.rolling_paper.message.exception.MessageAlreadyExistException;
 import com.likelion.rolling_paper.paper.dto.CreateMessageReq;
+import com.likelion.rolling_paper.paper.dto.CreateRollingPaperRes;
 import com.likelion.rolling_paper.paper.dto.GetRollingPaperListRes;
 import com.likelion.rolling_paper.paper.dto.MessageInfoRes;
-import com.likelion.rolling_paper.paper.dto.CreateRollingPaperRes;
 import com.likelion.rolling_paper.paper.exception.RollingPaperAlreadyExistException;
+import com.likelion.rolling_paper.paper.exception.RollingPaperNotAvailableException;
+import com.likelion.rolling_paper.paper.exception.RollingPaperUnauthorizedException;
 import com.likelion.rolling_paper.repository.MessageRepository;
 import com.likelion.rolling_paper.repository.RollingPaperRepository;
 import com.likelion.rolling_paper.repository.UserRepository;
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class PaperServiceImpl implements RollingPaperService {
+public class RollingPaperServiceImpl implements RollingPaperService {
     private final UserRepository userRepository;
     private final RollingPaperRepository rollingPaperRepository;
     private final MessageRepository messageRepository;
@@ -45,8 +47,34 @@ public class PaperServiceImpl implements RollingPaperService {
     @Override
     public List<GetRollingPaperListRes> getRollingPaperList() {
         List<RollingPaper> rollingPapers = rollingPaperRepository.findAll();
-        List<GetRollingPaperListRes> response = GetRollingPaperListRes.ofList(rollingPapers);
-        return response;
+        return GetRollingPaperListRes.ofList(rollingPapers);
+    }
+
+    @Override
+    public void getMessageWritingIsAvailable(String kakaoId, Long paperId) {
+
+        // 존재하지 않는 눈덩이로 들어왔을 때 (ROLLING_PAPER_NOT_FOUND_404)
+        RollingPaper rollingPaper = rollingPaperRepository.getById(paperId);
+
+        // 눈덩이 주인이 메시지 작성을 종료했다면 (ROLLING_PAPER_NOT_AVAILABLE_400)
+        if (rollingPaper.getIsFinish()) {
+            throw new RollingPaperNotAvailableException();
+        }
+
+        // 현재 접속한 사용자 조회
+        User user = userRepository.getByKakaoId(kakaoId);
+
+        // 눈덩이 주인 본인은 메시지 작성 불가 (ROLLING_PAPER_UNAUTHORIZED_401)
+        if (rollingPaper.getOwner().equals(user)) {
+            throw new RollingPaperUnauthorizedException();
+        }
+
+        // 이미 작성한 눈덩이라면 (MESSAGE_DUPLICATED_409)
+        if (messageRepository.existsByUserAndRollingPaper(user, rollingPaper)) {
+            throw new MessageAlreadyExistException();
+        }
+
+        // 그게 아니라면 메시지 작성 가능
     }
 
     @Override
