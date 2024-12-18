@@ -32,8 +32,7 @@ public class RollingPaper extends BaseEntity {
 
     private String name; // 스노우볼 이름
 
-    @Enumerated(EnumType.STRING)
-    private State state;
+    private boolean isFinish; // 작성 종료 여부
 
     // == 연관 관계 매핑 == //
     @OneToOne(fetch = FetchType.LAZY)
@@ -43,7 +42,7 @@ public class RollingPaper extends BaseEntity {
     // === 편의 메소드 ===
     public static RollingPaper toEntity(User user) {
         return RollingPaper.builder()
-                .state(State.PROGRESS)
+                .isFinish(false)
                 .name(user.getNickname())
                 .owner(user)
                 .build();
