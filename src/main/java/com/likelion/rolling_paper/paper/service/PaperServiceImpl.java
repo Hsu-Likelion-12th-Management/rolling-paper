@@ -11,6 +11,7 @@ import com.likelion.rolling_paper.repository.MessageRepository;
 import com.likelion.rolling_paper.repository.RollingPaperHomeRepository;
 import com.likelion.rolling_paper.repository.RollingPaperRepository;
 import com.likelion.rolling_paper.repository.UserRepository;
+import java.util.Random;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,7 @@ public class PaperServiceImpl implements PaperService{
     private final RollingPaperRepository rollingPaperRepository;
     private final RollingPaperHomeRepository rollingPaperHomeRepository;
     private final MessageRepository messageRepository;
+
     @Override
     @Transactional
     public RollingPaperInfoRes createRollingPaperPage(Long homeId, String kakaoId) {
@@ -36,7 +38,13 @@ public class PaperServiceImpl implements PaperService{
     public MessageInfoRes createNewMessage(CreateMessageReq createMessageReq, String kakaoId) {
         User user = userRepository.getByKakaoId(kakaoId);
         RollingPaper paper = rollingPaperRepository.getById(createMessageReq.paperId());
-        Message message = messageRepository.save(Message.toEntity(user, createMessageReq.content(), paper));
+        int randomEmojiValue = getRandomInteger();
+        Message message = messageRepository.save(Message.toEntity(user, createMessageReq.content(), randomEmojiValue, paper));
         return MessageInfoRes.of(message);
+    }
+
+    private static int getRandomInteger() {
+        Random random = new Random();
+        return random.nextInt(7); // 0 ~ 6 사이의 랜던값 추출
     }
 }

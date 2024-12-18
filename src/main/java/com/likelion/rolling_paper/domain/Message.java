@@ -30,7 +30,7 @@ public class Message extends BaseEntity {
     @Column(columnDefinition = "TEXT")
     private String content; // 작성된 메시지 내용
 
-    private Integer randomImojiValue; // 랜덤 이모지 (0~6)
+    private Integer randomEmojiValue; // 랜덤 이모지 (0~6)
 
     // == 연관 관계 매핑 ==
     @ManyToOne(fetch = FetchType.LAZY)
@@ -42,9 +42,10 @@ public class Message extends BaseEntity {
     private RollingPaper rollingPaper;
 
     // == 편의 메소드 ==
-    public static Message toEntity(User user, String content, RollingPaper paper) {
+    public static Message toEntity(User user, String content, Integer randomEmojiValue, RollingPaper paper) {
         return Message.builder()
                 .content(content)
+                .randomEmojiValue(randomEmojiValue)
                 .user(user)
                 .rollingPaper(paper)
                 .build();
