@@ -8,7 +8,6 @@ import com.likelion.rolling_paper.util.jwt.dto.CustomOAuth2User;
 import com.likelion.rolling_paper.util.response.SuccessResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +27,7 @@ public class PaperController {
     public SuccessResponse<RollingPaperInfoRes> createPaper(
             @AuthenticationPrincipal CustomOAuth2User customOAuth2User
     ) {
-        RollingPaperInfoRes res = paperService.createRollingPaperPage(customOAuth2User.getUsername());
+        RollingPaperInfoRes res = paperService.createPaper(customOAuth2User.getUsername());
         return SuccessResponse.of(res);
     }
 
