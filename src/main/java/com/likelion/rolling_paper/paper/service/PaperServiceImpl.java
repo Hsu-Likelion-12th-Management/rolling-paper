@@ -50,6 +50,18 @@ public class PaperServiceImpl implements RollingPaperService {
     }
 
     @Override
+    public void getMessageWritingIsAvailable(String kakaoId) {
+
+        // 존재하지 않는 눈덩이로 들어왔을 때 (ROLLING_PAPER_NOT_FOUND_404)
+
+        // 눈덩이 주인이 메시지 작성을 종료했다면 (ROLLING_PAPER_NOT_AVAILABLE_400)
+
+        // 이미 작성한 눈덩이라면 (MESSAGE_DUPLICATED_409)
+
+        // 그게 아니라면 메시지 작성 가능
+    }
+
+    @Override
     public MessageInfoRes createNewMessage(CreateMessageReq createMessageReq, String kakaoId) {
         User user = userRepository.getByKakaoId(kakaoId);
         RollingPaper paper = rollingPaperRepository.getById(createMessageReq.paperId());
