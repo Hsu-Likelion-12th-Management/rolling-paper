@@ -3,6 +3,7 @@ package com.likelion.rolling_paper.paper.controller;
 import com.likelion.rolling_paper.paper.dto.CreateRollingPaperRes;
 import com.likelion.rolling_paper.paper.dto.GetRollingPaperIsFinishRes;
 import com.likelion.rolling_paper.paper.dto.GetRollingPaperListRes;
+import com.likelion.rolling_paper.paper.dto.GetRollingPaperMessageListRes;
 import com.likelion.rolling_paper.paper.service.RollingPaperService;
 import com.likelion.rolling_paper.util.jwt.dto.CustomOAuth2User;
 import com.likelion.rolling_paper.util.response.SuccessResponse;
@@ -79,10 +80,10 @@ public class RollingPaperController implements RollingPaperControllerApi {
     }
 
     @GetMapping("/{paperId}/list")
-    public SuccessResponse<List<GetRollingPaperMessageRes>> getRollingPaperMessageRes(
+    public SuccessResponse<List<GetRollingPaperMessageListRes>> getRollingPaperMessageRes(
             @AuthenticationPrincipal CustomOAuth2User customOAuth2User
     ) {
-        List<GetRollingPaperMessageRes> res = rollingPaperService.getRollingPaperMessageRes(customOAuth2User.getUsername());
+        List<GetRollingPaperMessageListRes> res = rollingPaperService.getRollingPaperMessageRes(customOAuth2User.getUsername());
         return SuccessResponse.of(res);
     }
 }
