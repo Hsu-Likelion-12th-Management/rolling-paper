@@ -58,7 +58,7 @@ public class RollingPaperController implements RollingPaperControllerApi {
     /**
      * 내 눈덩이 작성 종료
      */
-    @PutMapping("/api/paper/finish")
+    @PutMapping("/finish")
     public SuccessResponse<Void> changeRollingPaperStatusToFinish(
             @AuthenticationPrincipal CustomOAuth2User customOAuth2User
     ) {

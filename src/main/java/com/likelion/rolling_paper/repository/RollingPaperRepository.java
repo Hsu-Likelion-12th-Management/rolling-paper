@@ -10,6 +10,9 @@ public interface RollingPaperRepository extends JpaRepository<RollingPaper,Long>
     default RollingPaper getById(Long id) {
         return findById(id).orElseThrow(RollingPaperNotFoundException::new);
     }
+    default RollingPaper getByOwner(User owner) {
+        return findByOwner(owner).orElseThrow(RollingPaperNotFoundException::new);
+    }
 
     Optional<RollingPaper> findByOwner(User owner);
 }
