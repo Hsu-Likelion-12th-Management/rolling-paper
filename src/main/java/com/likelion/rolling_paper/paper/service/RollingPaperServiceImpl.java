@@ -1,14 +1,11 @@
 package com.likelion.rolling_paper.paper.service;
 
-import com.likelion.rolling_paper.domain.Message;
 import com.likelion.rolling_paper.domain.RollingPaper;
 import com.likelion.rolling_paper.domain.User;
 import com.likelion.rolling_paper.message.exception.MessageAlreadyExistException;
-import com.likelion.rolling_paper.message.dto.CreateMessageReq;
 import com.likelion.rolling_paper.paper.dto.CreateRollingPaperRes;
 import com.likelion.rolling_paper.paper.dto.GetRollingPaperIsFinishRes;
 import com.likelion.rolling_paper.paper.dto.GetRollingPaperListRes;
-import com.likelion.rolling_paper.message.dto.MessageInfoRes;
 import com.likelion.rolling_paper.paper.exception.RollingPaperAlreadyExistException;
 import com.likelion.rolling_paper.paper.exception.RollingPaperNotAvailableException;
 import com.likelion.rolling_paper.paper.exception.RollingPaperUnauthorizedException;
@@ -16,7 +13,6 @@ import com.likelion.rolling_paper.repository.MessageRepository;
 import com.likelion.rolling_paper.repository.RollingPaperRepository;
 import com.likelion.rolling_paper.repository.UserRepository;
 import java.util.List;
-import java.util.Random;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
