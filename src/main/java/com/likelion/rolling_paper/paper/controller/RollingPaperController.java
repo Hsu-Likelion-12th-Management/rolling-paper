@@ -2,13 +2,12 @@ package com.likelion.rolling_paper.paper.controller;
 
 import com.likelion.rolling_paper.paper.dto.CreateMessageReq;
 import com.likelion.rolling_paper.paper.dto.MessageInfoRes;
-import com.likelion.rolling_paper.paper.dto.RollingPaperInfoRes;
-import com.likelion.rolling_paper.paper.service.PaperService;
+import com.likelion.rolling_paper.paper.dto.CreateRollingPaperRes;
+import com.likelion.rolling_paper.paper.service.RollingPaperService;
 import com.likelion.rolling_paper.util.jwt.dto.CustomOAuth2User;
 import com.likelion.rolling_paper.util.response.SuccessResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,25 +15,26 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/paper/")
-public class PageController implements PageControllerApi{
-    private final PaperService paperService;
+@RequestMapping("api/paper")
+public class RollingPaperController implements RollingPaperControllerApi {
+    private final RollingPaperService rollingPaperService;
 
-    @Override
-    @PostMapping("{homeId}/make")
-    public SuccessResponse<RollingPaperInfoRes> createRollingPaperPage(
-            @AuthenticationPrincipal CustomOAuth2User customOAuth2User,
-            @PathVariable("homeId") Long homeId) {
-        RollingPaperInfoRes res = paperService.createRollingPaperPage(homeId, customOAuth2User.getUsername());
+    /**
+     * 내 눈덩이 페이지 생성하기
+     */
+    @PostMapping
+    public SuccessResponse<CreateRollingPaperRes> createRollingPaper(
+            @AuthenticationPrincipal CustomOAuth2User customOAuth2User
+    ) {
+        CreateRollingPaperRes res = rollingPaperService.createRollingPaper(customOAuth2User.getUsername());
         return SuccessResponse.of(res);
     }
 
-    @Override
     @PostMapping("/message")
     public SuccessResponse<MessageInfoRes> createNewMessage(
             @AuthenticationPrincipal CustomOAuth2User customOAuth2User,
             @RequestBody CreateMessageReq createMessageReq) {
-        MessageInfoRes res = paperService.createNewMessage(createMessageReq, customOAuth2User.getUsername());
+        MessageInfoRes res = rollingPaperService.createNewMessage(createMessageReq, customOAuth2User.getUsername());
         return SuccessResponse.of(res);
     }
 }

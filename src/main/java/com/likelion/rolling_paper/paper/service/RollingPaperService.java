@@ -2,10 +2,10 @@ package com.likelion.rolling_paper.paper.service;
 
 import com.likelion.rolling_paper.paper.dto.CreateMessageReq;
 import com.likelion.rolling_paper.paper.dto.MessageInfoRes;
-import com.likelion.rolling_paper.paper.dto.RollingPaperInfoRes;
+import com.likelion.rolling_paper.paper.dto.CreateRollingPaperRes;
 
-public interface PaperService {
-    RollingPaperInfoRes createRollingPaperPage(Long homeId, String kakaoId);
+public interface RollingPaperService {
+    CreateRollingPaperRes createRollingPaper(String kakaoId);
 
     MessageInfoRes createNewMessage(CreateMessageReq createMessageReq, String kakaoId);
 }
