@@ -2,7 +2,7 @@ package com.likelion.rolling_paper.paper.controller;
 
 import com.likelion.rolling_paper.paper.dto.CreateMessageReq;
 import com.likelion.rolling_paper.paper.dto.MessageInfoRes;
-import com.likelion.rolling_paper.paper.dto.RollingPaperInfoRes;
+import com.likelion.rolling_paper.paper.dto.CreatePaperRes;
 import com.likelion.rolling_paper.paper.service.PaperService;
 import com.likelion.rolling_paper.util.jwt.dto.CustomOAuth2User;
 import com.likelion.rolling_paper.util.response.SuccessResponse;
@@ -24,10 +24,10 @@ public class PaperController {
      * 내 눈덩이 페이지 생성하기
      */
     @PostMapping
-    public SuccessResponse<RollingPaperInfoRes> createPaper(
+    public SuccessResponse<CreatePaperRes> createPaper(
             @AuthenticationPrincipal CustomOAuth2User customOAuth2User
     ) {
-        RollingPaperInfoRes res = paperService.createPaper(customOAuth2User.getUsername());
+        CreatePaperRes res = paperService.createPaper(customOAuth2User.getUsername());
         return SuccessResponse.of(res);
     }
 

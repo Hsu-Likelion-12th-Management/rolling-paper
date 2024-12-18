@@ -5,7 +5,7 @@ import com.likelion.rolling_paper.domain.RollingPaper;
 import com.likelion.rolling_paper.domain.User;
 import com.likelion.rolling_paper.paper.dto.CreateMessageReq;
 import com.likelion.rolling_paper.paper.dto.MessageInfoRes;
-import com.likelion.rolling_paper.paper.dto.RollingPaperInfoRes;
+import com.likelion.rolling_paper.paper.dto.CreatePaperRes;
 import com.likelion.rolling_paper.repository.MessageRepository;
 import com.likelion.rolling_paper.repository.RollingPaperRepository;
 import com.likelion.rolling_paper.repository.UserRepository;
@@ -23,10 +23,10 @@ public class PaperServiceImpl implements PaperService {
 
     @Override
     @Transactional
-    public RollingPaperInfoRes createPaper(String kakaoId) {
+    public CreatePaperRes createPaper(String kakaoId) {
         User user = userRepository.getByKakaoId(kakaoId);
         RollingPaper newPaper = rollingPaperRepository.save(RollingPaper.toEntity(user));
-        return RollingPaperInfoRes.of(newPaper);
+        return CreatePaperRes.of(newPaper);
     }
 
     @Override
