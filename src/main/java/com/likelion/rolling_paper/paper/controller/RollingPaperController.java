@@ -8,6 +8,7 @@ import com.likelion.rolling_paper.util.jwt.dto.CustomOAuth2User;
 import com.likelion.rolling_paper.util.response.SuccessResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/paper")
+@RequestMapping("/api/paper")
 public class RollingPaperController implements RollingPaperControllerApi {
     private final RollingPaperService rollingPaperService;
 
@@ -27,6 +28,17 @@ public class RollingPaperController implements RollingPaperControllerApi {
             @AuthenticationPrincipal CustomOAuth2User customOAuth2User
     ) {
         CreateRollingPaperRes res = rollingPaperService.createRollingPaper(customOAuth2User.getUsername());
+        return SuccessResponse.of(res);
+    }
+
+    /**
+     * 눈덩이 리스트 조회
+     */
+    @GetMapping("/list")
+    public SuccessResponse<GetRollingPaperListRes> getRollingPaperList(
+            @AuthenticationPrincipal CustomOAuth2User customOAuth2User
+    ) {
+        GetRollingPaperListRes res = rollingPaperService.getRollingPaperList(customOAuth2User.getUsername());
         return SuccessResponse.of(res);
     }
 
