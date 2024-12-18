@@ -3,6 +3,7 @@ package com.likelion.rolling_paper.paper.controller;
 import com.likelion.rolling_paper.paper.dto.CreateRollingPaperRes;
 import com.likelion.rolling_paper.paper.dto.GetRollingPaperIsFinishRes;
 import com.likelion.rolling_paper.paper.dto.GetRollingPaperListRes;
+import com.likelion.rolling_paper.paper.dto.GetRollingPaperMessageListRes;
 import com.likelion.rolling_paper.util.jwt.dto.CustomOAuth2User;
 import com.likelion.rolling_paper.util.response.ErrorResponse;
 import com.likelion.rolling_paper.util.response.SuccessResponse;
@@ -175,4 +176,51 @@ public interface RollingPaperControllerApi {
                     """), schema = @Schema(implementation = SuccessResponse.class)))})
     @PutMapping("/finish")
     SuccessResponse<Void> changeRollingPaperStatusToFinish(@AuthenticationPrincipal CustomOAuth2User customOAuth2User);
+
+    @Operation(summary = "눈덩이에 작성된 메시지 리스트 조회")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "성공", content = @Content(mediaType = "application/json", examples = @ExampleObject(value = """
+                {
+                    "timestamp": "2024-11-03T05:08:45.036657",
+                    "isSuccess": true,
+                    "code": "200",
+                    "message": "호출에 성공하였습니다.",
+                    "data": [
+                        {
+                            "randomEmojiValue": 0,
+                            "content": "아아아아",
+                            "name": "강민서"
+                        },
+                        {
+                            "randomEmojiValue": 1,
+                            "content": "안녕하세요",
+                            "name": "이나경"
+                        }
+                    ]
+                }
+                """), schema = @Schema(implementation = SuccessResponse.class))),
+            @ApiResponse(responseCode = "401", description = "본인 눈덩이가 아닌 경우", content = @Content(mediaType = "application/json", examples = @ExampleObject(value = """
+                {
+                    "timestamp": "2024-12-19T03:52:48.969386",
+                    "isSuccess": false,
+                    "code": "ROLLING_PAPER_OPEN_UNAUTHORIZED_401",
+                    "message": "본인 눈덩이만 열 수 있습니다.",
+                    "httpStatus": 401
+                }
+                """), schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse(responseCode = "404", description = "존재하지 않는 눈덩이에 접근", content = @Content(mediaType = "application/json", examples = @ExampleObject(value = """
+                {
+                    "timestamp": "2024-12-19T03:52:59.6063",
+                    "isSuccess": false,
+                    "code": "ROLLING_PAPER_NOT_FOUND_404",
+                    "message": "존재하지 않는 롤링페이퍼입니다.",
+                    "httpStatus": 404
+                }
+                """), schema = @Schema(implementation = ErrorResponse.class)))
+    })
+    @GetMapping("/{paperId}/list")
+    SuccessResponse<List<GetRollingPaperMessageListRes>> getRollingPaperMessageRes(
+            @AuthenticationPrincipal CustomOAuth2User customOAuth2User,
+            @PathVariable("paperId") Long paperId
+    );
 }

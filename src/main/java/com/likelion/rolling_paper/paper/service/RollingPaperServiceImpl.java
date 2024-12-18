@@ -1,13 +1,16 @@
 package com.likelion.rolling_paper.paper.service;
 
+import com.likelion.rolling_paper.domain.Message;
 import com.likelion.rolling_paper.domain.RollingPaper;
 import com.likelion.rolling_paper.domain.User;
 import com.likelion.rolling_paper.message.exception.MessageAlreadyExistException;
 import com.likelion.rolling_paper.paper.dto.CreateRollingPaperRes;
 import com.likelion.rolling_paper.paper.dto.GetRollingPaperIsFinishRes;
 import com.likelion.rolling_paper.paper.dto.GetRollingPaperListRes;
+import com.likelion.rolling_paper.paper.dto.GetRollingPaperMessageListRes;
 import com.likelion.rolling_paper.paper.exception.RollingPaperAlreadyExistException;
 import com.likelion.rolling_paper.paper.exception.RollingPaperNotAvailableException;
+import com.likelion.rolling_paper.paper.exception.RollingPaperOpenUnauthorizedException;
 import com.likelion.rolling_paper.paper.exception.RollingPaperUnauthorizedException;
 import com.likelion.rolling_paper.repository.MessageRepository;
 import com.likelion.rolling_paper.repository.RollingPaperRepository;
@@ -87,5 +90,18 @@ public class RollingPaperServiceImpl implements RollingPaperService {
         User user = userRepository.getByKakaoId(kakaoId);
         RollingPaper rollingPaper = rollingPaperRepository.getByOwner(user);
         rollingPaper.changeRollingPaperStatusToFinish();
+    }
+
+    @Override
+    public List<GetRollingPaperMessageListRes> getRollingPaperMessageListRes(String kakaoId, Long paperId) {
+        User user = userRepository.getByKakaoId(kakaoId);
+        RollingPaper rollingPaper = rollingPaperRepository.getByOwner(user);
+
+        if (!user.equals(rollingPaperRepository.getById(paperId).getOwner())) {
+            throw new RollingPaperOpenUnauthorizedException();
+        }
+
+        List<Message> messages = messageRepository.findAllByRollingPaper(rollingPaper);
+        return GetRollingPaperMessageListRes.ofList(messages);
     }
 }
