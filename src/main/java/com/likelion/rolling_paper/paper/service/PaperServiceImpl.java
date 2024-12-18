@@ -23,7 +23,7 @@ public class PaperServiceImpl implements RollingPaperService {
 
     @Override
     @Transactional
-    public CreateRollingPaperRes createPaper(String kakaoId) {
+    public CreateRollingPaperRes createRollingPaper(String kakaoId) {
         User user = userRepository.getByKakaoId(kakaoId);
         RollingPaper newPaper = rollingPaperRepository.save(RollingPaper.toEntity(user));
         return CreateRollingPaperRes.of(newPaper);

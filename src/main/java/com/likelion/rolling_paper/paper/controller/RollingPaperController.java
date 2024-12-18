@@ -27,7 +27,7 @@ public class RollingPaperController {
     public SuccessResponse<CreateRollingPaperRes> createRollingPaper(
             @AuthenticationPrincipal CustomOAuth2User customOAuth2User
     ) {
-        CreateRollingPaperRes res = rollingPaperService.createPaper(customOAuth2User.getUsername());
+        CreateRollingPaperRes res = rollingPaperService.createRollingPaper(customOAuth2User.getUsername());
         return SuccessResponse.of(res);
     }
 
