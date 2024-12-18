@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @Tag(name = "눈덩이 페이지 관련", description = "눈덩이 페이지와 관련된 API")
-public interface PageControllerApi {
+public interface PaperControllerApi {
     @Operation(summary = "내 눈덩이 페이지 생성하기")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "성공",

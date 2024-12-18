@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/paper/")
-public class PageController implements PageControllerApi{
+public class PaperController implements PaperControllerApi {
     private final PaperService paperService;
 
     @Override
