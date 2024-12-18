@@ -80,7 +80,9 @@ public class RollingPaperServiceImpl implements RollingPaperService {
 
     @Override
     public GetRollingPaperIsFinishRes getRollingPaperIsFinishRes(String kakaoId) {
-        return null;
+        User user = userRepository.getByKakaoId(kakaoId);
+        RollingPaper rollingPaper = rollingPaperRepository.getByOwner(user);
+        return GetRollingPaperIsFinishRes.of(rollingPaper);
     }
 
     @Transactional
