@@ -23,9 +23,10 @@ public class JwtTokenProvider {
         );
     }
 
-    public String generate(String subject, Date expiredAt) {
+    public String generate(String subject, String role, Date expiredAt) {
         return Jwts.builder()
                 .setSubject(subject)
+                .claim("role", role)
                 .setExpiration(expiredAt)
                 .signWith(secretKey, SignatureAlgorithm.HS256)
                 .compact();
@@ -34,6 +35,10 @@ public class JwtTokenProvider {
     public String extractSubject(String accessToken) {
         Claims claims = parseClaims(accessToken);
         return claims.getSubject();
+    }
+
+    public String extractRole(String accessToken) {
+        return parseClaims(accessToken).get("role", String.class); // 역할 추출
     }
 
     private Claims parseClaims(String accessToken) {

@@ -10,11 +10,14 @@ import com.likelion.rolling_paper.paper.exception.RollingPaperAlreadyExistExcept
 import com.likelion.rolling_paper.repository.MessageRepository;
 import com.likelion.rolling_paper.repository.RollingPaperRepository;
 import com.likelion.rolling_paper.repository.UserRepository;
+import java.util.Optional;
 import java.util.Random;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class PaperServiceImpl implements RollingPaperService {
@@ -28,9 +31,10 @@ public class PaperServiceImpl implements RollingPaperService {
         User user = userRepository.getByKakaoId(kakaoId);
 
         rollingPaperRepository.findByOwner(user)
-            .ifPresent(existingPaper -> {
-                throw new RollingPaperAlreadyExistException();
-            });
+                .ifPresent(existing -> {
+                    log.info("롤링페이퍼 이미 존재함");
+                    throw new RollingPaperAlreadyExistException();
+                });
 
         RollingPaper newPaper = rollingPaperRepository.save(RollingPaper.toEntity(user));
         return CreateRollingPaperRes.of(newPaper);
