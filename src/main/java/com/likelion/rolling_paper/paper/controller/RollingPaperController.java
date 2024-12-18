@@ -56,6 +56,17 @@ public class RollingPaperController implements RollingPaperControllerApi {
     }
 
     /**
+     * 내 눈덩이 작성이 종료되었는지 확인
+     */
+    @GetMapping("/finish")
+    public SuccessResponse<GetRollingPaperIsFinishRes> getRollingPaperIsFinishRes(
+            @AuthenticationPrincipal CustomOAuth2User customOAuth2User
+    ) {
+        GetRollingPaperIsFinishRes res = rollingPaperService.getRollingPaperIsFinishRes(customOAuth2User.getUsername());
+        return SuccessResponse.of(res);
+    }
+
+    /**
      * 내 눈덩이 작성 종료
      */
     @PutMapping("/finish")
