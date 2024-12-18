@@ -16,8 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/paper")
-//public class PaperController implements PaperControllerApi {
-public class RollingPaperController {
+public class RollingPaperController implements RollingPaperControllerApi {
     private final RollingPaperService rollingPaperService;
 
     /**
