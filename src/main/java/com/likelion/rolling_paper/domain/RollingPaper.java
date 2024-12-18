@@ -48,4 +48,7 @@ public class RollingPaper extends BaseEntity {
                 .build();
     }
 
+    public void changeRollingPaperStatusToFinish() {
+        this.isFinish = true;
+    }
 }

@@ -77,6 +77,14 @@ public class RollingPaperServiceImpl implements RollingPaperService {
         // 그게 아니라면 메시지 작성 가능
     }
 
+    @Transactional
+    @Override
+    public void changeRollingPaperStatusToFinish(String kakaoId) {
+        User user = userRepository.getByKakaoId(kakaoId);
+        RollingPaper rollingPaper = rollingPaperRepository.getByOwner(user);
+        rollingPaper.changeRollingPaperStatusToFinish();
+    }
+
     @Override
     public MessageInfoRes createNewMessage(CreateMessageReq createMessageReq, String kakaoId) {
         User user = userRepository.getByKakaoId(kakaoId);

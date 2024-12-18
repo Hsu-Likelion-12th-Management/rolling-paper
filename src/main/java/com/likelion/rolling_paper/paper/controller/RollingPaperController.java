@@ -1,9 +1,7 @@
 package com.likelion.rolling_paper.paper.controller;
 
-import com.likelion.rolling_paper.paper.dto.CreateMessageReq;
-import com.likelion.rolling_paper.paper.dto.GetRollingPaperListRes;
-import com.likelion.rolling_paper.paper.dto.MessageInfoRes;
 import com.likelion.rolling_paper.paper.dto.CreateRollingPaperRes;
+import com.likelion.rolling_paper.paper.dto.GetRollingPaperListRes;
 import com.likelion.rolling_paper.paper.service.RollingPaperService;
 import com.likelion.rolling_paper.util.jwt.dto.CustomOAuth2User;
 import com.likelion.rolling_paper.util.response.SuccessResponse;
@@ -13,7 +11,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -54,6 +52,17 @@ public class RollingPaperController implements RollingPaperControllerApi {
             @PathVariable("paperId") Long paperId
     ) {
         rollingPaperService.getMessageWritingIsAvailable(customOAuth2User.getUsername(), paperId);
+        return SuccessResponse.of(null);
+    }
+
+    /**
+     * 내 눈덩이 작성 종료
+     */
+    @PutMapping("/finish")
+    public SuccessResponse<Void> changeRollingPaperStatusToFinish(
+            @AuthenticationPrincipal CustomOAuth2User customOAuth2User
+    ) {
+        rollingPaperService.changeRollingPaperStatusToFinish(customOAuth2User.getUsername());
         return SuccessResponse.of(null);
     }
 

@@ -10,6 +10,7 @@ public interface RollingPaperService {
     CreateRollingPaperRes createRollingPaper(String kakaoId);
     List<GetRollingPaperListRes> getRollingPaperList();
     void getMessageWritingIsAvailable(String kakaoId, Long paperId);
+    void changeRollingPaperStatusToFinish(String kakaoId);
 
     MessageInfoRes createNewMessage(CreateMessageReq createMessageReq, String kakaoId);
 }
