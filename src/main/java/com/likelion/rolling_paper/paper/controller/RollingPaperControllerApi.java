@@ -17,6 +17,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @Tag(name = "눈덩이 페이지 관련", description = "눈덩이 페이지와 관련된 API")
 public interface RollingPaperControllerApi {
@@ -136,12 +137,25 @@ public interface RollingPaperControllerApi {
                     """),
                             schema = @Schema(implementation = ErrorResponse.class)))
     })
-
     @GetMapping("/{paperId}/check")
     SuccessResponse<Void> getMessageWritingIsAvailable(
             @AuthenticationPrincipal CustomOAuth2User customOAuth2User,
             @PathVariable("paperId") Long paperId
     );
+
+    @Operation(summary = "내 눈덩이 작성 종료")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "눈덩이 작성 종료 성공", content = @Content(mediaType = "application/json", examples = @ExampleObject(value = """
+                        {
+                            "timestamp": "2024-11-03T05:08:45.036657",
+                            "isSuccess": true,
+                            "code": "200",
+                            "message": "호출에 성공하였습니다.",
+                            "data": null
+                        }
+                    """), schema = @Schema(implementation = SuccessResponse.class)))})
+    @PutMapping("/finish")
+    SuccessResponse<Void> changeRollingPaperStatusToFinish(@AuthenticationPrincipal CustomOAuth2User customOAuth2User);
 
 //    @Operation(summary = "눈덩이에 메시지 남기기")
 //    @ApiResponses(value = {
