@@ -17,7 +17,7 @@ public class WebConfig implements WebMvcConfigurer {
                         "https://boogiball.netlify.app",
                         "https://bugi-ball.shop"
                 )
-                .allowedMethods("GET", "POST", "PATCH", "DELETE")
+                .allowedMethods("GET", "POST", "PATCH", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true)
                 .maxAge(3000);
