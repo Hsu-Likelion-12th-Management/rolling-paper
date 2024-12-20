@@ -96,7 +96,7 @@ public class RollingPaperController implements RollingPaperControllerApi {
     }
 
     @GetMapping("/check")
-    public SuccessResponse<GetIsRollingPaperMadeRes> getIsRollingPaperMade (@AuthenticationPrincipal CustomOAuth2User customOAuth2User) {
+    public SuccessResponse<GetIsRollingPaperMadeRes> getIsRollingPaperMade(@AuthenticationPrincipal CustomOAuth2User customOAuth2User) {
         GetIsRollingPaperMadeRes res = rollingPaperService.getIsRollingPaperMade(customOAuth2User.getUsername());
         return SuccessResponse.of(res);
     }
