@@ -5,6 +5,7 @@ import com.likelion.rolling_paper.domain.RollingPaper;
 import com.likelion.rolling_paper.domain.User;
 import com.likelion.rolling_paper.message.exception.MessageAlreadyExistException;
 import com.likelion.rolling_paper.paper.dto.CreateRollingPaperRes;
+import com.likelion.rolling_paper.paper.dto.GetIsRollingPaperMadeRes;
 import com.likelion.rolling_paper.paper.dto.GetRollingPaperIsFinishRes;
 import com.likelion.rolling_paper.paper.dto.GetRollingPaperListRes;
 import com.likelion.rolling_paper.paper.dto.GetRollingPaperMessageListRes;
@@ -16,6 +17,7 @@ import com.likelion.rolling_paper.repository.MessageRepository;
 import com.likelion.rolling_paper.repository.RollingPaperRepository;
 import com.likelion.rolling_paper.repository.UserRepository;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -103,5 +105,13 @@ public class RollingPaperServiceImpl implements RollingPaperService {
 
         List<Message> messages = messageRepository.findAllByRollingPaper(rollingPaper);
         return GetRollingPaperMessageListRes.ofList(messages);
+    }
+
+    @Override
+    public GetIsRollingPaperMadeRes getIsRollingPaperMade(String kakaoId) {
+        User user = userRepository.getByKakaoId(kakaoId);
+        Optional<RollingPaper> optionalRollingPaper = rollingPaperRepository.findByOwner(user);
+        boolean isExist = optionalRollingPaper.isPresent();
+        return new GetIsRollingPaperMadeRes(isExist);
     }
 }
