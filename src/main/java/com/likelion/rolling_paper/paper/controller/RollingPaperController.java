@@ -1,6 +1,7 @@
 package com.likelion.rolling_paper.paper.controller;
 
 import com.likelion.rolling_paper.paper.dto.CreateRollingPaperRes;
+import com.likelion.rolling_paper.paper.dto.GetIsRollingPaperMadeRes;
 import com.likelion.rolling_paper.paper.dto.GetRollingPaperIsFinishRes;
 import com.likelion.rolling_paper.paper.dto.GetRollingPaperListRes;
 import com.likelion.rolling_paper.paper.dto.GetRollingPaperMessageListRes;
@@ -91,6 +92,12 @@ public class RollingPaperController implements RollingPaperControllerApi {
                 customOAuth2User.getUsername(),
                 paperId
         );
+        return SuccessResponse.of(res);
+    }
+
+    @GetMapping("/check")
+    public SuccessResponse<GetIsRollingPaperMadeRes> getIsRollingPaperMade (@AuthenticationPrincipal CustomOAuth2User customOAuth2User) {
+        GetIsRollingPaperMadeRes res = rollingPaperService.getIsRollingPaperMade(customOAuth2User.getUsername());
         return SuccessResponse.of(res);
     }
 }
